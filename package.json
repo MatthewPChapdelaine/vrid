@@ -1,0 +1,26 @@
+{
+  "name": "cntrprty",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modulesio/cntrprty.git"
+  },
+  "author": "Avaer Kazmer <a@modules.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modulesio/cntrprty/issues"
+  },
+  "homepage": "https://github.com/modulesio/cntrprty#readme",
+  "dependencies": {
+    "async": "^2.3.0",
+    "bitcore-lib": "^0.14.0",
+    "crypto-random": "^1.0.3",
+    "mnemonic.js": "0.0.1",
+    "request": "^2.81.0"
+  }
+}
