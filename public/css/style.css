@@ -98,6 +98,11 @@ input[type=submit] {
   cursor: pointer;
   outline: none;
 }
+input[type=file] {
+  position: absolute;
+  height: 0;
+  z-index: -1;
+}
 .button {
   display: inline-flex;
   padding: 10px 20px;
@@ -108,6 +113,8 @@ input[type=submit] {
   justify-content: center;
   align-items: center;
   text-align: center;
+  user-select: none;
+  cursor: pointer;
 }
 .button:hover {
   background-color: #000;
