@@ -169,6 +169,11 @@ input[type=submit] {
   flex-direction: column;
   box-sizing: border-box;
 }
+.bitcoin-balance:hover {
+  background-color: #000;
+  color: #FFF;
+  text-decoration: none;
+}
 .bitcoin-balance .value {
   display: flex;
   font-size: 30px;

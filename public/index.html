@@ -24,7 +24,7 @@
       <div class="navbar asset" style="display: none;">
         <div class=header-left>
           <img class=icon id=asset-icon>
-          <a id=asset-username>publicKey</a><span class=spacer>/</span><span id=asset-assetname>asset</span>
+          <a id=asset-username>username</a><span class=spacer>/</span><span id=asset-assetname>asset</span>
         </div>
         <div class=header-right>
           <a class="button primary" id=asset-logout-button>Log out</a>
@@ -45,10 +45,10 @@
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page account" style="display: none;">
-        <div class=bitcoin-balance>
+        <a class=bitcoin-balance id=bitcoin-balance>
           <div class=value id=bitcoin-balance-value>0</div>
           <div class=label>BTC</div>
-        </div>
+        </a>
         <h1>Assets</h1>
         <div class=assets-grid id=assets-grid></div>
         <h1>Secrets</h1>
