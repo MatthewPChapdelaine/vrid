@@ -3,6 +3,7 @@ const fs = require('fs');
 const http = require('http');
 
 const mkdirp = require('mkdirp');
+const rimraf = require('rimraf');
 const express = require('express');
 const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
@@ -42,24 +43,106 @@ _requestRollup(path.join('lib', 'index.js'))
       res.type('application/javastript');
       res.send(indexJs);
     });
+    const assetsStatic = express.static(dataPath);
+    function serveAssetsStatic(req, res, next) {
+      const asset = req.params[0];
+      let filePath = req.params[1];
+
+      const _serveSingle = () => {
+        req.url = '/' + asset + filePath;
+
+        res.set('Content-Disposition', 'attachment; filename="' + path.basename(filePath) + '"');
+
+        assetsStatic(req, res, next);
+      };
+
+      if (!/^\/?$/.test(filePath)) {
+        _serveSingle();
+      } else {
+        const fullPath = path.join(dataPath, asset);
+
+        const _serveMultiple = () => {
+          res.type('application/octet-stream');
+          res.set('Content-Disposition', 'attachment; filename="' + asset + '.zip"');
+
+          const zipProcess = child_process.spawn('zip', [
+            '-r',
+            '-',
+            '.',
+          ], {
+            cwd: fullPath,
+          });
+
+          zipProcess.stdout.pipe(res);
+          zipProcess.stderr.pipe(process.stderr);
+          zipProcess.on('exit', code => {
+            if (code !== 0) {
+              res.status(500);
+              res.send('zip returned non-zero status code: ' + code);
+            }
+          });
+        };
+
+        fs.readdir(fullPath, (err, files) => {
+          if (!err) {
+            if (files.length === 0) {
+              _serveSingle();
+            } else if (files.length === 1) {
+              const file = files[0];
+
+              fs.lstat(path.join(fullPath, file), (err, stats) => {
+                if (!err) {
+                  if (stats.isFile()) {
+                    filePath = '/' + file;
+
+                    _serveSingle();
+                  } else if (stats.isDirectory()) {
+                    _serveMultiple();
+                  } else {
+                    res.status(404);
+                    res.send();
+                  }
+                } else {
+                  res.status(404);
+                  res.send();
+                }
+              });
+            } else {
+              _serveMultiple();
+            }
+          } else {
+            res.status(404);
+            res.send();
+          }
+        });
+      }
+    }
+    app.get(/^\/assets\/([^\/]+)((?:\/.*)?)$/, serveAssetsStatic);
     app.put(/^\/assets\/(.+)$/, (req, res, next) => {
       const id = req.params[0];
       const assetPath = path.join(dataPath, id);
 
-      mkdirp(assetPath, err => {
+      rimraf(assetPath, err => {
         if (!err) {
-          const busboy = new Busboy({
-            headers: req.headers,
-          });
-          busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-            const ws = fs.createWriteStream(path.join(assetPath, fieldname));
-            file.pipe(ws);
-          });
-          busboy.on('finish', () => {
-            res.send();
-          });
+          mkdirp(assetPath, err => {
+            if (!err) {
+              const busboy = new Busboy({
+                headers: req.headers,
+              });
+              busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+                const ws = fs.createWriteStream(path.join(assetPath, fieldname));
+                file.pipe(ws);
+              });
+              busboy.on('finish', () => {
+                res.send();
+              });
 
-          req.pipe(busboy);
+              req.pipe(busboy);
+            } else {
+              res.status(500);
+              res.send(err.stack);
+            }
+          });
         } else {
           res.status(500);
           res.send(err.stack);
