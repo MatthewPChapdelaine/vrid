@@ -185,8 +185,8 @@ input[type=submit] {
   flex-wrap: wrap;
 }
 .assets-grid .asset {
-  display: block;
-  width: 100px;
+  display: inline-flex;
+  width: 300px;
   height: 100px;
   padding: 10px;
   margin-right: 10px;
@@ -194,12 +194,27 @@ input[type=submit] {
   background-color: #EEE;
   color: #000;
   font-size: 16px;
+  flex-direction: column;
   box-sizing: border-box;
 }
 .assets-grid .asset:hover {
   background-color: #000;
   color: #FFF;
   text-decoration: none;
+}
+.assets-grid .asset .quantity {
+  display: flex;
+  margin-bottom: auto;
+  font-size: 30px;
+  // font-weight: 600;
+  justify-content: center;
+  align-items: center;
+}
+.assets-grid .asset .name {
+  display: flex;
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: 600;
 }
 .private-key-button {
   width: 130px;
