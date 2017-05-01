@@ -107,6 +107,7 @@ input[type=submit] {
   font-weight: 600;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .button:hover {
   background-color: #000;
@@ -140,9 +141,20 @@ input[type=submit] {
   flex-grow: 1;
 }
 .secret {
+  display: flex;
   margin-right: 20px;
   background-color: #000;
+  font-family: var(--monospace-fonts);
   flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+.secret > .value {
+  color: #FFF;
+  display: none;
+}
+.secret > .value.visible {
+  display: block;
 }
 .assets-grid {
   display: flex;
@@ -164,6 +176,9 @@ input[type=submit] {
   background-color: #000;
   color: #FFF;
   text-decoration: none;
+}
+.private-key-button {
+  width: 130px;
 }
 .send-form input[type=text] {
   margin-right: 15px;

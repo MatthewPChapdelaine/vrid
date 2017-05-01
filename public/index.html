@@ -49,8 +49,11 @@
         <div class=assets-grid id=assets-grid></div>
         <h1>Secrets</h1>
         <div class=row>
-          <div class=secret></div>
-          <a class=button>Show private key</a>
+          <div class=secret id=private-key>
+            <div class=value id=private-key-value></div>
+          </div>
+          <a class="button private-key-button" id=show-private-key>Show private key</a>
+          <a class="button private-key-button" id=hide-private-key style="display: none;">Hide private key</a>
         </div>
         <h1>Help</h1>
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
