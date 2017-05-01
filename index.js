@@ -1,12 +1,16 @@
 const path = require('path');
+const fs = require('fs');
 const http = require('http');
 
+const mkdirp = require('mkdirp');
 const express = require('express');
 const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const Busboy = require('busboy');
+
+const dataPath = path.join(__dirname, 'data');
 
 const _requestRollup = p => rollup.rollup({
   entry: p,
@@ -39,24 +43,28 @@ _requestRollup(path.join('lib', 'index.js'))
       res.send(indexJs);
     });
     app.put(/^\/assets\/(.+)$/, (req, res, next) => {
-      const busboy = new Busboy({
-        headers: req.headers,
-      });
-      busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-        file.on('data', data => {
-          console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
-        });
-        file.on('end', () => {
-          console.log('File [' + fieldname + '] Finished');
-        });
-      });
-      busboy.on('finish', () => {
-        console.log('finished');
+      const id = req.params[0];
+      const assetPath = path.join(dataPath, id);
 
-        res.send();
-      });
+      mkdirp(assetPath, err => {
+        if (!err) {
+          const busboy = new Busboy({
+            headers: req.headers,
+          });
+          busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+            const ws = fs.createWriteStream(path.join(assetPath, fieldname));
+            file.pipe(ws);
+          });
+          busboy.on('finish', () => {
+            res.send();
+          });
 
-      req.pipe(busboy);
+          req.pipe(busboy);
+        } else {
+          res.status(500);
+          res.send(err.stack);
+        }
+      });
     });
     app.use('/', express.static('public'));
 

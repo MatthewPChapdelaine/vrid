@@ -22,6 +22,7 @@
     "busboy": "^0.2.14",
     "creaturejs": "0.0.5",
     "express": "^4.15.2",
+    "mkdirp": "^0.5.1",
     "mnemonic-browser": "0.0.1",
     "request": "^2.81.0",
     "rollup": "^0.41.6",
