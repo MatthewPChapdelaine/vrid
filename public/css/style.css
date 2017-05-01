@@ -31,14 +31,11 @@ code {
 }
 .body {
   min-height: 100vh;
-  // padding: 20px;
-  // box-sizing: border-box;
 }
 .header {
   display: flex;
   padding: 15px 30px;
   margin-bottom: 20px;
-  // border-bottom: 2px solid #CCC;
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
   font-size: 20px;
   align-items: center;
@@ -47,17 +44,20 @@ code {
   display: flex;
   align-items: center;
 }
-.header .header-left {
-  margin-right: auto;
+.header .header-right {
+  margin-left: auto;
 }
 .header .icon {
   width: 50px;
   height: 50px;
   margin-right: 10px;
-  // background-color: #EEE;
   image-rendering: pixelated;
 }
-.header .spacer {
+.navbar {
+  display: flex;
+  flex-grow: 1;
+}
+.navbar .spacer {
   margin: 0 10px;
 }
 h1, p {

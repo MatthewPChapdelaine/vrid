@@ -7,16 +7,32 @@
 <body>
   <div class=body>
     <div class=header>
-      <div class=header-left>
-        <img class=icon id=header-icon>
-        <a id=username>publicKey</a><span class=spacer>/</span><span id=asset>asset</span>
+      <div class="navbar login">
+        <div class=header-left>
+          <span class=spacer>Filewallet</span>
+        </div>
       </div>
-      <div class=header-right>
-        <a class="button primary" id=logout-button>Log out</a>
+      <div class="navbar account" style="display: none;">
+        <div class=header-left>
+          <img class=icon id=account-icon>
+          <span id=account-username>publicKey</span>
+        </div>
+        <div class=header-right>
+          <a class="button primary" id=logout-button>Log out</a>
+        </div>
+      </div>
+      <div class="navbar asset" style="display: none;">
+        <div class=header-left>
+          <img class=icon id=asset-icon>
+          <a id=asset-username>publicKey</a><span class=spacer>/</span><span id=asset-assetname>asset</span>
+        </div>
+        <div class=header-right>
+          <a class="button primary" id=logout-button>Log out</a>
+        </div>
       </div>
     </div>
     <div class=content>
-      <div class="page login" style="display: none;">
+      <div class="page login">
         <form class=login-form id=login-form>
           <h1>Log in to your filewallet</h1>
           <div class=row>
