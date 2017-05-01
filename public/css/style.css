@@ -60,28 +60,19 @@ code {
 .header .spacer {
   margin: 0 10px;
 }
-.content {
-  width: 640px;
-  padding: 0 30px;
-}
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
-form .form-row {
-  display: flex;
-}
-.login-form input[type=text] {
-  margin-right: 20px;
-  flex-grow: 1;
-}
-.login-form .button {
-}
-h1 {
+h1, p {
   margin: 0;
   margin-bottom: 20px;
+}
+h1 {
   font-size: 34px;
   font-weight: 400;
+}
+p.inset {
+  padding: 10px 20px;
+  background-color: #EEE;
+  border-radius: 3px;
+  font-size: 13px;
 }
 input[type=text] {
   display: flex;
@@ -120,4 +111,27 @@ input[type=text]::-webkit-input-placeholder {
 .button.primary:hover {
   background-color: #673AB7;
   color: #FFF;
+}
+.content {
+  width: 640px;
+  padding: 0 30px;
+}
+.row {
+  display: flex;
+}
+.login-form {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+.login-form input[type=text] {
+  margin-right: 20px;
+  flex-grow: 1;
+}
+.login-form .button {
+}
+.secret {
+  margin-right: 20px;
+  background-color: #000;
+  flex-grow: 1;
 }
