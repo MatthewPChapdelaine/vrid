@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
+const child_process = require('child_process');
 
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
@@ -51,7 +52,7 @@ _requestRollup(path.join('lib', 'index.js'))
       const _serveSingle = () => {
         req.url = '/' + asset + filePath;
 
-        res.set('Content-Disposition', 'attachment; filename="' + path.basename(filePath) + '"');
+        res.set('X-Content-Type-Options', 'nosniff');
 
         assetsStatic(req, res, next);
       };
@@ -87,26 +88,6 @@ _requestRollup(path.join('lib', 'index.js'))
           if (!err) {
             if (files.length === 0) {
               _serveSingle();
-            } else if (files.length === 1) {
-              const file = files[0];
-
-              fs.lstat(path.join(fullPath, file), (err, stats) => {
-                if (!err) {
-                  if (stats.isFile()) {
-                    filePath = '/' + file;
-
-                    _serveSingle();
-                  } else if (stats.isDirectory()) {
-                    _serveMultiple();
-                  } else {
-                    res.status(404);
-                    res.send();
-                  }
-                } else {
-                  res.status(404);
-                  res.send();
-                }
-              });
             } else {
               _serveMultiple();
             }
