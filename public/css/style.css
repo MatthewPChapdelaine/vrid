@@ -79,7 +79,7 @@ input[type=text] {
   border: 0;
   border-bottom: 2px solid;
   font-family: var(--fonts);
-  font-size: 20px;
+  font-size: 13px;
   line-height: 2;
   justify-content: center;
   align-items: center;
@@ -119,8 +119,8 @@ input[type=submit] {
   color: #FFF;
 }
 .content {
-  width: 640px;
-  padding: 0 30px;
+  width: 780px;
+  padding-left: 30px;
 }
 .row {
   display: flex;
@@ -130,8 +130,10 @@ input[type=submit] {
   display: flex;
   flex-direction: column;
 }
+.login-form input[type=text], .login-form a {
+  margin-right: 15px;
+}
 .login-form input[type=text] {
-  margin-right: 20px;
   flex-grow: 1;
 }
 .login-form .button {
