@@ -15,7 +15,7 @@
       <div class="navbar account" style="display: none;">
         <div class=header-left>
           <img class=icon id=account-icon>
-          <span id=account-username>publicKey</span>
+          <span id=account-username>username</span>
         </div>
         <div class=header-right>
           <a class="button primary" id=account-logout-button>Log out</a>
@@ -28,6 +28,15 @@
         </div>
         <div class=header-right>
           <a class="button primary" id=asset-logout-button>Log out</a>
+        </div>
+      </div>
+      <div class="navbar create-asset" style="display: none;">
+        <div class=header-left>
+          <img class=icon id=create-asset-icon>
+          <a id=create-asset-username>username</a><span class=spacer>/</span><span>Create asset</span>
+        </div>
+        <div class=header-right>
+          <a class="button primary" id=create-asset-logout-button>Log out</a>
         </div>
       </div>
     </div>
@@ -51,6 +60,9 @@
         </a>
         <h1>Assets</h1>
         <div class=assets-grid id=assets-grid></div>
+        <div class=row>
+          <a class=button id=create-asset>Create asset</a>
+        </div>
         <h1>Secrets</h1>
         <div class=row>
           <div class=secret id=private-key>
@@ -80,6 +92,23 @@
           <div class=row>
             <input type=text placeholder="Enter destination address" id=send-input>
             <input type=submit class=button value="Send">
+          </div>
+          <h1>Help</h1>
+          <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        </form>
+      </div>
+      <div class="page create-asset" style="display: none;">
+        <form class=create-asset-form id=create-asset-form>
+          <h1>Create asset</h1>
+          <div class=row>
+            <input type=text placeholder="Enter asset name" id=create-asset-name-input>
+            <a class=button id=create-asset-generate>Generate</a>
+          </div>
+          <div class=row>
+            <input type=text placeholder="Enter asset description" id=create-asset-description-input>
+          </div>
+          <div class=row>
+            <input type=submit class=button value="Create asset">
           </div>
           <h1>Help</h1>
           <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
