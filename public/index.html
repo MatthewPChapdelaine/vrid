@@ -9,7 +9,7 @@
     <div class=header>
       <div class=header-left>
         <img class=icon id=header-icon>
-        <a>publicKey</a><span class=spacer>/</span><span>asset</span>
+        <a id=username>publicKey</a><span class=spacer>/</span><span id=asset>asset</span>
       </div>
       <div class=header-right>
         <a class="button primary" id=logout-button>Log out</a>
@@ -20,9 +20,9 @@
         <form class=login-form id=login-form>
           <h1>Log in to your filewallet</h1>
           <div class=row>
-            <input type=text placeholder="Enter wallet words" id=login-input>
+            <input type=text class=center placeholder="Enter wallet words" id=login-input>
             <a class=button id=login-generate>Generate</a>
-            <input type=submit class=button value="Log in" id=login-button>
+            <input type=submit class=button value="Log in">
           </div>
         </form>
         <h1>Help</h1>
@@ -34,10 +34,21 @@
         <h1>Secrets</h1>
         <div class=row>
           <div class=secret></div>
-          <a class=button id=login-button>Show private key</a>
+          <a class=button>Show private key</a>
         </div>
         <h1>Help</h1>
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+      </div>
+      <div class="page asset" style="display: none;">
+        <form class=send-form id=send-form>
+          <h1>Send asset</h1>
+          <div class=row>
+            <input type=text placeholder="Enter destination address" id=send-input>
+            <input type=submit class=button value="Send">
+          </div>
+          <h1>Help</h1>
+          <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        </form>
       </div>
     </div>
   </div>

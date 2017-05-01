@@ -79,15 +79,18 @@ input[type=text] {
   border: 0;
   border-bottom: 2px solid;
   font-family: var(--fonts);
-  font-size: 13px;
   line-height: 2;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   outline: none;
 }
 input[type=text]::-webkit-input-placeholder {
   color: #AAA;
+}
+input[type=text].center {
+  font-size: 13px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 input[type=submit] {
   background-color: transparent;
@@ -136,8 +139,6 @@ input[type=submit] {
 .login-form input[type=text] {
   flex-grow: 1;
 }
-.login-form .button {
-}
 .secret {
   margin-right: 20px;
   background-color: #000;
@@ -163,4 +164,8 @@ input[type=submit] {
   background-color: #000;
   color: #FFF;
   text-decoration: none;
+}
+.send-form input[type=text] {
+  margin-right: 15px;
+  flex-grow: 1;
 }
