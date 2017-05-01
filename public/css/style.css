@@ -87,7 +87,7 @@ input[type=text] {
   outline: none;
 }
 input[type=text]::-webkit-input-placeholder {
-  color: #CCC;
+  color: #AAA;
 }
 input[type=submit] {
   background-color: transparent;
