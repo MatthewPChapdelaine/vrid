@@ -103,6 +103,19 @@ input[type=file] {
   height: 0;
   z-index: -1;
 }
+input[type=number] {
+  display: flex;
+  width: 90px;
+  padding: 0;
+  padding-left: 10px;
+  border: 0;
+  border: 2px solid;
+  font-family: var(--fonts);
+  font-weight: 600;
+  line-height: 34px;
+  outline: none;
+  box-sizing: border-box;
+}
 .button {
   display: inline-flex;
   padding: 10px 20px;
@@ -237,6 +250,7 @@ input[type=file] {
   margin-right: 15px;
 }
 .create-asset-form input[type=text] {
-  width: 400px;
+  width: 300px;
   margin-right: 15px;
+  text-align: left;
 }
