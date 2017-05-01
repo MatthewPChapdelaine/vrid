@@ -89,6 +89,12 @@ input[type=text] {
 input[type=text]::-webkit-input-placeholder {
   color: #CCC;
 }
+input[type=submit] {
+  background-color: transparent;
+  font-family: var(--fonts);
+  cursor: pointer;
+  outline: none;
+}
 .button {
   display: inline-flex;
   padding: 10px 20px;
