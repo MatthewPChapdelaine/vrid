@@ -17,12 +17,15 @@
   },
   "homepage": "https://github.com/modulesio/cntrprty#readme",
   "dependencies": {
-    "async": "^2.3.0",
+    "async": "^2.4.0",
     "bitcore-lib": "^0.14.0",
     "creaturejs": "0.0.5",
-    "crypto-random": "^1.0.3",
     "express": "^4.15.2",
-    "mnemonic.js": "0.0.1",
-    "request": "^2.81.0"
+    "mnemonic-browser": "0.0.1",
+    "request": "^2.81.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.1.1",
+    "rollup-plugin-node-resolve": "^3.0.0"
   }
 }
