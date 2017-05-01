@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Filewallet</title>
+  <link href="/css/style.css" rel=stylesheet>
+</head>
+<body>
+  <div class=body>
+    <div class=header>
+      <div class=header-left>
+        <img class=icon id=header-icon>
+        <a>publicKey</a><span class=spacer>/</span><span>asset</span>
+      </div>
+      <div class=header-right>
+        <a class="button primary" id=logout-button>Log out</a>
+      </div>
+    </div>
+    <div class=content>
+      <form class=login-form id=login-form>
+        <h1>Log in to your filewallet</h1>
+        <div class=form-row>
+          <input type=text placeholder="Enter wallet words" id=login-input>
+          <a class=button id=login-button>Log in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://wzrd.in/standalone/creaturejs@latest"></script>
+  <script>
+const $ = s => document.querySelectorAll(s);
+
+$('#header-icon')[0].src = creaturejs.makeStaticCreature('user');
+
+$('#login-form')[0].addEventListener('submit', e => {
+  const wordsString = $('#login-input')[0].value;
+  const words = wordsString.split(' ');
+
+  if (words.length === 12) {
+    console.log('login', {words});
+  } else {
+    const err = new Error('invalid words: ' + JSON.stringify(wordsString));
+    console.warn(err);
+  }
+});
+  </script>
+</body>
+</html/>

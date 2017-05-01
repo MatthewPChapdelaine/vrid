@@ -1,0 +1,123 @@
+body {
+  --fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --monospace-fonts: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+body {
+  display: flex;
+  position: relative;
+  min-width: 1024px;
+  min-height: 720px;
+  max-width: 100vw;
+  margin: 0;
+  font-family: var(--fonts);
+  flex-direction: column;
+  overflow-x: hidden;
+}
+a {
+  color: #2196F3;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+code {
+  display: inline-block;
+  padding: 0 5px;
+  font-family: var(--monospace-fonts);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+.body {
+  min-height: 100vh;
+  // padding: 20px;
+  // box-sizing: border-box;
+}
+.header {
+  display: flex;
+  padding: 15px 30px;
+  margin-bottom: 20px;
+  // border-bottom: 2px solid #CCC;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  font-size: 20px;
+  align-items: center;
+}
+.header .header-left, .header .header-right {
+  display: flex;
+  align-items: center;
+}
+.header .header-left {
+  margin-right: auto;
+}
+.header .icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  // background-color: #EEE;
+  image-rendering: pixelated;
+}
+.header .spacer {
+  margin: 0 10px;
+}
+.content {
+  width: 640px;
+  padding: 0 30px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+form .form-row {
+  display: flex;
+}
+.login-form input[type=text] {
+  margin-right: 20px;
+  flex-grow: 1;
+}
+.login-form .button {
+}
+h1 {
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 34px;
+  font-weight: 400;
+}
+input[type=text] {
+  display: flex;
+  border: 0;
+  border-bottom: 2px solid;
+  font-family: var(--fonts);
+  font-size: 20px;
+  line-height: 2;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  outline: none;
+}
+input[type=text]::-webkit-input-placeholder {
+  color: #CCC;
+}
+.button {
+  display: inline-flex;
+  padding: 10px 20px;
+  border: 2px solid;
+  color: #000;
+  font-size: 13px;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover {
+  background-color: #000;
+  border-color: transparent;
+  color: #FFF;
+  text-decoration: none;
+}
+.button.primary {
+  color: #673AB7;
+}
+.button.primary:hover {
+  background-color: #673AB7;
+  color: #FFF;
+}
