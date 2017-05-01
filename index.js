@@ -6,6 +6,7 @@ const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
+const Busboy = require('busboy');
 
 const _requestRollup = p => rollup.rollup({
   entry: p,
@@ -36,6 +37,26 @@ _requestRollup(path.join('lib', 'index.js'))
     app.get('/js/index.js', (req, res, next) => {
       res.type('application/javastript');
       res.send(indexJs);
+    });
+    app.put(/^\/assets\/(.+)$/, (req, res, next) => {
+      const busboy = new Busboy({
+        headers: req.headers,
+      });
+      busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+        file.on('data', data => {
+          console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
+        });
+        file.on('end', () => {
+          console.log('File [' + fieldname + '] Finished');
+        });
+      });
+      busboy.on('finish', () => {
+        console.log('finished');
+
+        res.send();
+      });
+
+      req.pipe(busboy);
     });
     app.use('/', express.static('public'));
 

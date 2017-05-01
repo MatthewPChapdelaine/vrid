@@ -19,6 +19,7 @@
   "dependencies": {
     "async": "^2.4.0",
     "bitcore-lib": "^0.14.0",
+    "busboy": "^0.2.14",
     "creaturejs": "0.0.5",
     "express": "^4.15.2",
     "mnemonic-browser": "0.0.1",
