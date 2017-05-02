@@ -65,10 +65,39 @@
         <a class="button secondary" id=create-burn-logout-button>Log out</a>
       </div>
     </div>
+    <div class="content full">
+      <div class="page action-confirm" style="display: none;">
+        <form class=action-confirm-form id=action-confirm-form>
+          <div class=header>
+            <div class=header-left>
+              <h2>Confirm transaction</h2>
+            </div>
+            <div class=header-right>
+              <h3 id=action-username>username</h3>
+              <a class="button secondary" id=action-logout-button>Log out</a>
+            </div>
+          </div>
+          <p><b>Send</b> <b>0.5 BTC</b> to <b>LOLLERCOPTER</b>?</p>
+          <div class=row>
+            <a class="button primary" id=approve-button>Approve</a>
+            <a class="button tertiary" id=reject-button>Reject</a>
+          </div>
+        </form>
+      </div>
+      <div class="page action-login" style="display: none;">
+        <form class=action-login-form id=action-login-form>
+          <h2>Log in to confirm</h2>
+          <div class=row>
+            <input type=text class=center placeholder="Enter wallet words" id=action-login-input>
+            <input type=submit class=button value="Log in">
+          </div>
+        </form>
+      </div>
+   </div>
     <div class=content>
       <div class="page login" style="display: none;">
         <form class=login-form id=login-form>
-          <h1>Log in to your filewallet</h1>
+          <h1>Log in</h1>
           <div class=row>
             <input type=text class=center placeholder="Enter wallet words" id=login-input>
             <a class=button id=login-generate>Generate</a>
@@ -77,16 +106,6 @@
         </form>
         <h1>Help</h1>
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
-      </div>
-      <div class="page action" style="display: none;">
-        <form class=action-form id=action-form>
-          <h2>Confirm transaction</h2>
-          <p><b>Send</b> <b>0.5 BTC</b> to <b>LOLLERCOPTER</b>?</p>
-          <div class=row>
-            <a class="button primary" id=approve-button>Approve</a>
-            <a class="button tertiary" id=reject-button>Reject</a>
-          </div>
-        </form>
       </div>
       <div class="page account" style="display: none;">
         <a class=balance id=btc-balance>

@@ -5,14 +5,15 @@ body {
 body {
   display: flex;
   position: relative;
-  min-width: 1024px;
-  min-height: 720px;
-  max-width: 100vw;
   margin: 0;
   background-color: #FFF;
   font-family: var(--fonts);
   flex-direction: column;
   overflow-x: hidden;
+  overflow-y: scroll;
+}
+body.iframe {
+  overflow: hidden;
 }
 a {
   color: #2196F3;
@@ -46,7 +47,7 @@ code {
   border-radius: 3px;
 }
 .body {
-  min-height: 100vh;
+  // min-height: 100vh;
 }
 .header {
   display: flex;
@@ -72,7 +73,7 @@ code {
 .header .spacer {
   margin: 0 10px;
 }
-h1, h2, p {
+h1, h2, h3, h4, h5, h6, p {
   margin: 0;
   margin-bottom: 20px;
 }
@@ -82,6 +83,10 @@ h1 {
 }
 h2 {
   font-size: 26px;
+  font-weight: 400;
+}
+h3 {
+  font-size: 13px;
   font-weight: 400;
 }
 p {
@@ -191,6 +196,10 @@ label {
 .content {
   width: 780px;
   padding-left: 30px;
+  box-sizing: border-box;
+}
+.content.full {
+  width: 100%;
 }
 .row {
   display: flex;
@@ -206,10 +215,23 @@ label {
 .login-form input[type=text] {
   flex-grow: 1;
 }
-.action-form {
-  margin: 10px 0;
+.action-confirm .header {
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
 }
-.action-form a {
+.action-confirm .header h3 {
+  margin: 0;
+  margin-right: 10px;
+}
+.action-confirm-form, .action-login-form {
+  margin: 20px 0;
+}
+.action-confirm-form a {
+  margin-right: 10px;
+}
+.action-login-form input[type=text] {
+  width: 550px;
   margin-right: 10px;
 }
 .secret {
