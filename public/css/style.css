@@ -68,14 +68,10 @@ code {
   margin-right: 10px;
   image-rendering: pixelated;
 }
-.navbar {
-  display: flex;
-  flex-grow: 1;
-}
-.navbar .spacer {
+.header .spacer {
   margin: 0 10px;
 }
-h1, p {
+h1, h2, p {
   margin: 0;
   margin-bottom: 20px;
 }
@@ -83,11 +79,17 @@ h1 {
   font-size: 34px;
   font-weight: 400;
 }
+h2 {
+  font-size: 26px;
+  font-weight: 400;
+}
+p {
+  font-size: 13px;
+}
 p.inset {
   padding: 10px 20px;
   background-color: #EEE;
   border-radius: 3px;
-  font-size: 13px;
 }
 input[type=text] {
   display: flex;
@@ -165,10 +167,24 @@ label {
   text-decoration: none;
 }
 .button.primary {
-  color: #673AB7;
+  color: #4CAF50;
 }
 .button.primary:hover {
+  background-color: #4CAF50;
+  color: #FFF;
+}
+.button.secondary {
+  color: #673AB7;
+}
+.button.secondary:hover {
   background-color: #673AB7;
+  color: #FFF;
+}
+.button.tertiary {
+  color: #F44336;
+}
+.button.tertiary:hover {
+  background-color: #F44336;
   color: #FFF;
 }
 .content {
@@ -188,6 +204,12 @@ label {
 }
 .login-form input[type=text] {
   flex-grow: 1;
+}
+.action-form {
+  margin: 10px 0;
+}
+.action-form a {
+  margin-right: 10px;
 }
 .secret {
   display: flex;
