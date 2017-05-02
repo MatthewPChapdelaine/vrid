@@ -210,32 +210,6 @@
       </div>
     </div>
   </div>
-  <script>
-window.module = {};
-window.$ = s => document.querySelectorAll(s);
-
-function getQueryVariable(variable) {
-  const vars = window.location.search.slice(1).split('&');
-
-  for (let i = 0; i < vars.length; i++) {
-    const pair = vars[i].split('=');
-
-    if (decodeURIComponent(pair[0]) === variable) {
-      return decodeURIComponent(pair[1]);
-    }
-  }
-
-  return null;
-}
-
-const action = getQueryVariable('a');
-if (action) {
-  $('.page.action')[0].style.display = 'block';
-} else {
-  $('.header.login')[0].style.display = 'flex';
-  $('.page.login')[0].style.display = 'block';
-}
-  </script>
   <script src="/js/index.js"></script>
 </body>
 </html/>
