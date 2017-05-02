@@ -21,6 +21,24 @@
           <a class="button primary" id=account-logout-button>Log out</a>
         </div>
       </div>
+      <div class="navbar btc" style="display: none;">
+        <div class=header-left>
+          <img class=icon id=btc-icon>
+          <a id=btc-username>username</a><span class=spacer>/</span><span>BTC</span>
+        </div>
+        <div class=header-right>
+          <a class="button primary" id=btc-logout-button>Log out</a>
+        </div>
+      </div>
+      <div class="navbar xcp" style="display: none;">
+        <div class=header-left>
+          <img class=icon id=xcp-icon>
+          <a id=xcp-username>username</a><span class=spacer>/</span><span>XCP</span>
+        </div>
+        <div class=header-right>
+          <a class="button primary" id=xcp-logout-button>Log out</a>
+        </div>
+      </div>
       <div class="navbar asset" style="display: none;">
         <div class=header-left>
           <img class=icon id=asset-icon>
@@ -94,10 +112,11 @@
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page asset" style="display: none;">
-        <form class=send-form id=send-form>
+        <form class=send-asset-form id=send-asset-form>
           <h1>Send asset</h1>
           <div class=row>
-            <input type=text placeholder="Enter destination address" id=send-input>
+            <input type=text placeholder="Enter destination address" id=send-asset-address-input>
+            <input type=number placeholder=0 id=send-asset-quantity-input>
             <input type=submit class=button value="Send">
           </div>
         </form>
@@ -113,6 +132,30 @@
           <div class=row>
             <input type=text placeholder="Enter destination address" id=transfer-input>
             <input type=submit class=button value="Transfer">
+          </div>
+        </form>
+        <h1>Help</h1>
+        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+      </div>
+      <div class="page btc" style="display: none;">
+        <form class=send-btc-form id=send-btc-form>
+          <h1>Send BTC</h1>
+          <div class=row>
+            <input type=text placeholder="Enter destination address" id=send-btc-address-input>
+            <input type=number placeholder=0 id=send-btc-quantity-input>
+            <input type=submit class=button value="Send">
+          </div>
+        </form>
+        <h1>Help</h1>
+        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+      </div>
+      <div class="page xcp" style="display: none;">
+        <form class=send-xcp-form id=send-xcp-form>
+          <h1>Send XCP</h1>
+          <div class=row>
+            <input type=text placeholder="Enter destination address" id=send-xcp-address-input>
+            <input type=number placeholder=0 id=send-xcp-quantity-input>
+            <input type=submit class=button value="Send">
           </div>
         </form>
         <h1>Help</h1>

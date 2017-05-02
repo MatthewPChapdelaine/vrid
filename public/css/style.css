@@ -297,9 +297,23 @@ label {
 .private-key-button {
   width: 130px;
 }
-.send-form input[type=text] {
-  width: 300px;
+.send-asset-form input[type=text], .send-asset-form input[type=number] {
   margin-right: 10px;
+}
+.send-asset-form input[type=text] {
+  width: 300px;
+}
+.send-btc-form input[type=text], .send-btc-form input[type=number] {
+  margin-right: 10px;
+}
+.send-btc-form input[type=text] {
+  width: 300px;
+}
+.send-xcp-form input[type=text], .send-xcp-form input[type=number] {
+  margin-right: 10px;
+}
+.send-xcp-form input[type=text] {
+  width: 300px;
 }
 .create-asset-form input[type=text] {
   width: 300px;
