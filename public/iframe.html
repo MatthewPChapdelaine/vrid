@@ -18,13 +18,17 @@ iframe {
     </style>
   </head>
 <body>
-  <iframe src="/?a=send" id=iframe></iframe>
   <script>
 window.$ = s => document.querySelectorAll(s);
 
-$('#iframe')[0].contentWindow.addEventListener('message', e => {
-  console.log('got message from iframe', e.data);
+const iframe = document.createElement('iframe');
+iframe.src = '/' + document.location.search;
+iframe.addEventListener('load', e => {
+  iframe.contentWindow.addEventListener('message', e => {
+    console.log('got message from iframe', e.data);
+  });
 });
+document.body.appendChild(iframe);
   </script>
 </body>
 </html/>
