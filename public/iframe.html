@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+body {
+  margin: 0;
+  background-color: #000;
+}
+iframe {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 0;
+}
+    </style>
+  </head>
+<body>
+  <iframe src="/?a=send" id=iframe></iframe>
+  <script>
+window.$ = s => document.querySelectorAll(s);
+
+$('#iframe')[0].contentWindow.addEventListener('message', e => {
+  console.log('got message from iframe', e.data);
+});
+  </script>
+</body>
+</html/>
