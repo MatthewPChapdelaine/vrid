@@ -212,15 +212,16 @@ input[type=number] {
 }
 .assets-grid .asset {
   display: inline-flex;
+  position: relative;
   width: 300px;
   height: 100px;
   padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
   background-color: #EEE;
+  border-left: 30px solid #673AB7;
   color: #000;
   font-size: 16px;
-  flex-direction: column;
   box-sizing: border-box;
 }
 .assets-grid .asset:hover {
@@ -228,19 +229,38 @@ input[type=number] {
   color: #FFF;
   text-decoration: none;
 }
-.assets-grid .asset .quantity {
+.assets-grid .asset:hover::before {
+  color: #000;
+}
+.assets-grid .asset::before {
   display: flex;
-  margin-bottom: auto;
-  font-size: 30px;
-  // font-weight: 600;
+  position: absolute;
+  width: 100px;
+  top: 35px;
+  left: -65px;
+  height: 30px;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  transform: rotate(-90deg);
+  content: 'Asset';
 }
 .assets-grid .asset .name {
   display: flex;
-  margin-left: auto;
+  width: 150px;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
+}
+.assets-grid .asset .quantity {
+  display: flex;
   font-size: 20px;
   font-weight: 600;
+  justify-content: center;
+  align-items: center;
 }
 .private-key-button {
   width: 130px;
