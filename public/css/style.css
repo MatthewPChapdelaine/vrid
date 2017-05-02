@@ -98,11 +98,11 @@ input[type=submit] {
   cursor: pointer;
   outline: none;
 }
-input[type=file] {
+/* input[type=file] {
   position: absolute;
   height: 0;
   z-index: -1;
-}
+} */
 input[type=number] {
   display: flex;
   width: 90px;
@@ -115,6 +115,9 @@ input[type=number] {
   line-height: 34px;
   outline: none;
   box-sizing: border-box;
+}
+input[type=number]::-webkit-input-placeholder {
+  color: #AAA;
 }
 .button {
   display: inline-flex;
@@ -155,7 +158,7 @@ input[type=number] {
   flex-direction: column;
 }
 .login-form input[type=text], .login-form a {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 .login-form input[type=text] {
   flex-grow: 1;
@@ -266,11 +269,18 @@ input[type=number] {
   width: 130px;
 }
 .send-form input[type=text] {
-  width: 400px;
-  margin-right: 15px;
+  width: 300px;
+  margin-right: 10px;
 }
 .create-asset-form input[type=text] {
   width: 300px;
-  margin-right: 15px;
+  margin-right: 10px;
   text-align: left;
+}
+.issue-form input[type=number] {
+  margin-right: 10px;
+}
+.transfer-form input[type=text] {
+  width: 300px;
+  margin-right: 10px;
 }

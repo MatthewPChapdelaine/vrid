@@ -75,27 +75,29 @@
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page asset" style="display: none;">
-        <form class=download-form id=download-form>
-          <h1>Download asset</h1>
-          <div class=row>
-            <a class=button id=download-asset>Download</a>
-          </div>
-        </form>
-        <form class=upload-form id=upload-form>
-          <h1>Upload asset</h1>
-          <div class=row id=upload-asset-container>
-            <label for=upload-asset-file class=button id=upload-asset>Upload</label>
-          </div>
-        </form>
         <form class=send-form id=send-form>
           <h1>Send asset</h1>
           <div class=row>
             <input type=text placeholder="Enter destination address" id=send-input>
             <input type=submit class=button value="Send">
           </div>
-          <h1>Help</h1>
-          <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
         </form>
+        <form class=issue-form id=issue-form>
+          <h1>Issue asset</h1>
+          <div class=row>
+            <input type=number placeholder=0 id=issue-input>
+            <input type=submit class=button value="Issue">
+          </div>
+        </form>
+        <form class=transfer-form id=transfer-form>
+          <h1>Transfer asset</h1>
+          <div class=row>
+            <input type=text placeholder="Enter destination address" id=transfer-input>
+            <input type=submit class=button value="Transfer">
+          </div>
+        </form>
+        <h1>Help</h1>
+        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page create-asset" style="display: none;">
         <form class=create-asset-form id=create-asset-form>
@@ -108,7 +110,7 @@
             <input type=text placeholder="Enter asset description" id=create-asset-description-input>
           </div>
           <div class=row>
-            <input type=number value=1 placeholder="Quantity" id=create-asset-quantity-input>
+            <input type=number value=1 placeholder=0 id=create-asset-quantity-input>
           </div>
           <div class=row>
             <input type=submit class=button value="Create asset">
