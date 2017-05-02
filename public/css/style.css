@@ -179,7 +179,7 @@ input[type=number]::-webkit-input-placeholder {
 .secret > .value.visible {
   display: block;
 }
-.bitcoin-balance {
+.balance {
   display: inline-flex;
   width: 300px;
   height: 100px;
@@ -192,19 +192,19 @@ input[type=number]::-webkit-input-placeholder {
   flex-direction: column;
   box-sizing: border-box;
 }
-.bitcoin-balance:hover {
+.balance:hover {
   background-color: #000;
   color: #FFF;
   text-decoration: none;
 }
-.bitcoin-balance .value {
+.balance .value {
   display: flex;
   font-size: 30px;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
 }
-.bitcoin-balance .label {
+.balance .label {
   margin-left: auto;
   font-weight: 600;
 }
