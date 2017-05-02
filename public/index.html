@@ -39,6 +39,15 @@
           <a class="button primary" id=create-asset-logout-button>Log out</a>
         </div>
       </div>
+      <div class="navbar create-burn" style="display: none;">
+        <div class=header-left>
+          <img class=icon id=create-burn-icon>
+          <a id=create-burn-username>username</a><span class=spacer>/</span><span>Create burn</span>
+        </div>
+        <div class=header-right>
+          <a class="button primary" id=create-burn-logout-button>Log out</a>
+        </div>
+      </div>
     </div>
     <div class=content>
       <div class="page login">
@@ -60,8 +69,9 @@
         </a>
         <h1>Assets</h1>
         <div class=assets-grid id=assets-grid></div>
-        <div class=row>
+        <div class="row assets-create">
           <a class=button id=create-asset>Create asset</a>
+          <a class=button id=create-burn>Create burn</a>
         </div>
         <h1>Secrets</h1>
         <div class=row>
@@ -114,6 +124,19 @@
           </div>
           <div class=row>
             <input type=submit class=button value="Create asset">
+          </div>
+          <h1>Help</h1>
+          <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        </form>
+      </div>
+      <div class="page create-burn" style="display: none;">
+        <form class=create-burn-form id=create-burn-form>
+          <h1>Create burn</h1>
+          <div class=row>
+            <input type=number placeholder=0 id=create-burn-quantity-input>
+          </div>
+          <div class=row>
+            <input type=submit class=button value="Create burn">
           </div>
           <h1>Help</h1>
           <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
