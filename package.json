@@ -1,7 +1,7 @@
 {
-  "name": "filewallet",
+  "name": "assetwallet",
   "version": "0.0.1",
-  "description": "Store files as counterparty assets",
+  "description": "Counterparty web wallet",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
