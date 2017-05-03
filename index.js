@@ -11,8 +11,6 @@ const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const Busboy = require('busboy');
 
-const dataPath = path.join(__dirname, 'data');
-
 const _requestRollup = p => rollup.rollup({
   entry: p,
   plugins: [
@@ -35,25 +33,56 @@ const _requestRollup = p => rollup.rollup({
     return wrappedCode;
   });
 
-_requestRollup(path.join('lib', 'index.js'))
-  .then(indexJs => {
-    const app = express();
+class AssetWallet {
+  constructor({
+    hostname = null,
+    port = 3000,
+  } = {}) {
+    this.hostname = hostname;
+    this.port = port;
+  }
 
-    app.get('/js/index.js', (req, res, next) => {
-      res.type('application/javastript');
-      res.send(indexJs);
-    });
-    app.use('/', express.static('public'));
+  requestApp() {
+    return _requestRollup(path.join(__dirname, 'lib', 'index.js'))
+      .then(indexJs => {
+        const app = express();
+        app.get('/js/index.js', (req, res, next) => {
+          res.type('application/javastript');
+          res.send(indexJs);
+        });
+        app.use('/', express.static('public'));
 
-    http.createServer(app)
-      .listen(3000, err => {
-        if (!err) {
-          console.log('http://127.0.0.1:3000');
-        } else {
-          console.warn(err);
-        }
+        return Promise.resolve(app);
       });
-  })
-  .catch(err => {
-    console.warn(err);
-  });
+  }
+
+  listen() {
+    const {hostname, port} = this;
+
+    this.requestApp()
+      .then(app => {
+        http.createServer(app)
+          .listen(port, hostname, err => {
+            if (!err) {
+              console.log(`http://${hostname || '127.0.0.1'}:${port}`);
+            } else {
+              console.warn(err);
+            }
+          });
+      })
+      .catch(err => {
+        console.warn(err);
+      });
+  }
+}
+
+const _boot = () => {
+  new AssetWallet()
+    .listen();
+};
+
+module.exports = opts => new AssetWallet(opts);
+
+if (!module.parent) {
+  _boot();
+}
