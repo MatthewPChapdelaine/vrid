@@ -46,11 +46,6 @@ class AssetWallet {
     return _requestRollup(path.join(__dirname, 'lib', 'index.js'))
       .then(indexJs => {
         const app = express();
-        app.all('*', (req, res, next) => {
-          console.log('debug req', req.url);
-
-          next();
-        });
         app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
           res.type('application/javastript');
           res.send(indexJs);
