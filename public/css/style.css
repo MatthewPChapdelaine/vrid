@@ -207,6 +207,7 @@ label {
 }
 .login-form {
   display: flex;
+  margin: 20px 0;
   flex-direction: column;
 }
 .login-form input[type=text], .login-form a {
