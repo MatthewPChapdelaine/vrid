@@ -47,9 +47,9 @@ code {
   border-radius: 3px;
 }
 .body {
-  // min-height: 100vh;
+  overflow: hidden;
 }
-.header {
+.statusbar {
   display: flex;
   padding: 15px 30px;
   margin-bottom: 20px;
@@ -57,20 +57,20 @@ code {
   font-size: 20px;
   align-items: center;
 }
-.header .header-left, .header .header-right {
+.statusbar .statusbar-left, .statusbar .statusbar-right {
   display: flex;
   align-items: center;
 }
-.header .header-right {
+.statusbar .statusbar-right {
   margin-left: auto;
 }
-.header .icon {
+.statusbar .icon {
   width: 50px;
   height: 50px;
   margin-right: 10px;
   image-rendering: pixelated;
 }
-.header .spacer {
+.statusbar .spacer {
   margin: 0 10px;
 }
 h1, h2, h3, h4, h5, h6, p {
@@ -216,12 +216,12 @@ label {
 .login-form input[type=text] {
   flex-grow: 1;
 }
-.action-confirm .header {
+.action-confirm .statusbar {
   margin: 0;
   padding: 0;
   box-shadow: none;
 }
-.action-confirm .header h3 {
+.action-confirm .statusbar h3 {
   margin: 0;
   margin-right: 10px;
 }
