@@ -10,6 +10,7 @@ const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const Busboy = require('busboy');
+const transclude = require('transclude');
 
 const _requestRollup = p => rollup.rollup({
   entry: p,
@@ -36,16 +37,35 @@ const _requestRollup = p => rollup.rollup({
 class AssetWallet {
   constructor({
     prefix = '',
+    head = '',
+    body = '',
   } = {}) {
     this.prefix = prefix;
+    this.head = head;
+    this.body = body;
   }
 
   requestApp() {
-    const {prefix} = this;
+    const {prefix, head, body} = this;
 
-    return _requestRollup(path.join(__dirname, 'lib', 'index.js'))
-      .then(indexJs => {
+    return Promise.all([
+      transclude.requestTranscludeRequestHandler(path.join(__dirname, 'public', 'index.html'), s =>
+        s
+          .replace('<!-- HEAD -->', head)
+          .replace('<!-- BODY -->', body)
+      ),
+      _requestRollup(path.join(__dirname, 'lib', 'index.js'))
+    ])
+      .then(([
+        indexHtmlHandler,
+        indexJs,
+      ])  => {
         const app = express();
+        app.get(path.join(prefix, '/'), (req, res, next) => {
+          res.type('text/html');
+
+          indexHtmlHandler(req, res, next);
+        });
         app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
           res.type('application/javastript');
           res.send(indexJs);

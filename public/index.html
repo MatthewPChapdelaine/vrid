@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Assetwallet</title>
+  <!-- HEAD -->
+  <base id=base />
   <script>
 const base = document.getElementById('base');
 base.href = document.location.protocol + '//' + document.location.hostname + (document.location.port ? (':' + document.location.port) : '') + document.location.pathname + (!/\/$/.test(document.location.pathname) ? '/' : '');
   </script>
   <link href="css/style.css" rel=stylesheet>
-  <base id=base />
 </head>
 <body>
+  <!-- BODY -->
   <div class=body>
     <div class="header login" style="display: none;">
       <div class=header-left>
