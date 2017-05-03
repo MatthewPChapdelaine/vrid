@@ -35,30 +35,36 @@ const _requestRollup = p => rollup.rollup({
 
 class AssetWallet {
   constructor({
-    hostname = null,
-    port = 3000,
+    prefix = '',
   } = {}) {
-    this.hostname = hostname;
-    this.port = port;
+    this.prefix = prefix;
   }
 
   requestApp() {
+    const {prefix} = this;
+
     return _requestRollup(path.join(__dirname, 'lib', 'index.js'))
       .then(indexJs => {
         const app = express();
-        app.get('/js/index.js', (req, res, next) => {
+        app.all('*', (req, res, next) => {
+          console.log('debug req', req.url);
+
+          next();
+        });
+        app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
           res.type('application/javastript');
           res.send(indexJs);
         });
-        app.use('/', express.static('public'));
+        app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
 
         return Promise.resolve(app);
       });
   }
 
-  listen() {
-    const {hostname, port} = this;
-
+  listen({
+    hostname = null,
+    port = 3000,
+  } = {}) {
     this.requestApp()
       .then(app => {
         http.createServer(app)
@@ -76,13 +82,9 @@ class AssetWallet {
   }
 }
 
-const _boot = () => {
-  new AssetWallet()
-    .listen();
-};
-
 module.exports = opts => new AssetWallet(opts);
 
 if (!module.parent) {
-  _boot();
+  new AssetWallet()
+    .listen();
 }

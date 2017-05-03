@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Filewallet</title>
-  <link href="/css/style.css" rel=stylesheet>
+  <title>Assetwallet</title>
+  <script>
+const base = document.getElementById('base');
+base.href = document.location.protocol + '//' + document.location.hostname + (document.location.port ? (':' + document.location.port) : '') + document.location.pathname + (!/\/$/.test(document.location.pathname) ? '/' : '');
+  </script>
+  <link href="css/style.css" rel=stylesheet>
+  <base id=base />
 </head>
 <body>
   <div class=body>
@@ -229,6 +234,6 @@
       </div>
     </div>
   </div>
-  <script src="/js/index.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html/>
