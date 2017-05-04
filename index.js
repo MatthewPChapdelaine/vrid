@@ -77,6 +77,7 @@ class AssetWallet {
 
           const _respondDefault = () => {
             res.json({
+              address: address,
               assets: [],
             });
           };
