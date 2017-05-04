@@ -66,11 +66,11 @@ class AssetWallet {
 
           indexHtmlHandler(req, res, next);
         });
-        app.get(path.join(prefix, 'js', 'index.js'), (req, res, next) => {
+        app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
           res.type('application/javascript');
           res.send(indexJs);
         });
-        app.post(path.join(prefix, 'api', 'login'), (req, res, next) => {
+        app.post(path.join(prefix, '/api/login'), (req, res, next) => {
           const authorization = req.get('Authorization');
 
           const _respondInvalid = () => {
@@ -91,7 +91,7 @@ class AssetWallet {
             _respondInvalid();
           }
         });
-        app.post(path.join(prefix, 'api', 'logout'), (req, res, next) => {
+        app.post(path.join(prefix, '/api/logout'), (req, res, next) => {
           res.set('Set-Cookie', 'words=deleted; expires=Thu, 01 Jan 1970 00:00:00 GMT');
           res.send();
         });
