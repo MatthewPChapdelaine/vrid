@@ -73,6 +73,8 @@ class AssetWallet {
           res.send(indexJs);
         });
         app.get(path.join(prefix, '/api/status'), (req, res, next) => {
+          res.set('Access-Control-Allow-Origin', '*');
+
           const cookieHeader = req.get('Cookie');
 
           const _respondDefault = () => {
