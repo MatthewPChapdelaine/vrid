@@ -79,7 +79,7 @@ class AssetWallet {
 
           const _respondDefault = () => {
             res.json({
-              address: address,
+              address: null,
               assets: [],
             });
           };
@@ -94,6 +94,7 @@ class AssetWallet {
               backendApi.requestAssetBalances(address)
                 .then(assetSpecs => {
                   res.json({
+                    address: address,
                     assets: assetSpecs,
                   });
                 })
