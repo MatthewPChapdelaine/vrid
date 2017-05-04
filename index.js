@@ -66,9 +66,34 @@ class AssetWallet {
 
           indexHtmlHandler(req, res, next);
         });
-        app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
-          res.type('application/javastript');
+        app.get(path.join(prefix, 'js', 'index.js'), (req, res, next) => {
+          res.type('application/javascript');
           res.send(indexJs);
+        });
+        app.post(path.join(prefix, 'api', 'login'), (req, res, next) => {
+          const authorization = req.get('Authorization');
+
+          const _respondInvalid = () => {
+            res.status(400);
+            res.send();
+          };
+
+          if (authorization) {
+            const wordsString = authorization.match(/^Words (.+)$/);
+
+            if (wordsString) {
+              res.set('Set-Cookie', 'words=' + wordsString + '; HttpOnly');
+              res.send();
+            } else {
+              _respondInvalid();
+            }
+          } else {
+            _respondInvalid();
+          }
+        });
+        app.post(path.join(prefix, 'api', 'logout'), (req, res, next) => {
+          res.set('Set-Cookie', 'words=deleted; expires=Thu, 01 Jan 1970 00:00:00 GMT');
+          res.send();
         });
         app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
 
