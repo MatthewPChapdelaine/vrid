@@ -24,6 +24,7 @@
     "cookie": "^0.3.1",
     "creaturejs": "0.0.5",
     "express": "^4.15.2",
+    "js-cookie": "^2.1.4",
     "mkdirp": "^0.5.1",
     "mnemonic-browser": "0.0.1",
     "request": "^2.81.0",

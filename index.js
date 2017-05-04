@@ -84,7 +84,7 @@ class AssetWallet {
             const wordsString = authorization.match(/^Words (.+)$/);
 
             if (wordsString) {
-              res.set('Set-Cookie', 'words=' + wordsString + '; HttpOnly');
+              res.set('Set-Cookie', 'words=' + wordsString);
               res.send();
             } else {
               _respondInvalid();
