@@ -5,12 +5,14 @@ const http = require('http');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
 const express = require('express');
+const cookie = require('cookie');
 const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const Busboy = require('busboy');
 const transclude = require('transclude');
+const backendApi = require('./lib/backend-api');
 
 const _requestRollup = p => rollup.rollup({
   entry: p,
@@ -94,6 +96,39 @@ class AssetWallet {
         app.post(path.join(prefix, '/api/logout'), (req, res, next) => {
           res.set('Set-Cookie', 'words=deleted; expires=Thu, 01 Jan 1970 00:00:00 GMT');
           res.send();
+        });
+        app.get(path.join(prefix, '/api/status'), (req, res, next) => {
+          const cookieHeader = req.get('Cookie');
+
+          const _respondDefault = () => {
+            res.json({
+              assets: [],
+            });
+          };
+
+          if (cookieHeader) {
+            const c = cookie.parse(cookieHeader);
+            const words = c && c.words;
+
+            if (words) {
+              const address = backendApi.getAddress(words);
+
+              backendApi.requestAssetBalances(address)
+                .then(assetSpecs => {
+                  res.json({
+                    assets: assetSpecs,
+                  });
+                })
+                .catch(err => {
+                  res.status(500);
+                  res.send(err.stack);
+                });
+            } else {
+              _respondDefault();
+            }
+          } else {
+            _respondDefault();
+          }
         });
         app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
 
