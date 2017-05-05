@@ -92,16 +92,17 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
       </div>
       <div class="page action-login" style="display: none;">
         <form class=action-login-form id=action-login-form>
-          <h2>Log in to confirm</h2>
+          <h2>Log in to wallet</h2>
           <div class=row>
             <input type=text class=center placeholder="Enter wallet words" id=action-login-input>
+            <a class=button id=action-login-generate>Generate</a>
             <input type=submit class=button value="Log in">
           </div>
         </form>
       </div>
       <div class="page action-logout" style="display: none;">
         <form class=action-logout-form id=action-logout-form>
-          <h1>Log out</h1>
+          <h1>Log out of wallet</h1>
           <div class=row>
             <a class="button primary" id=action-logout-confirm-button>Confirm</a>
             <a class=button id=action-logout-cancel-button>Cancel</a>

@@ -230,7 +230,7 @@ label {
 .action-confirm-form, .action-login-form, .action-logout-form {
   margin: 20px 0;
 }
-.action-confirm-form a, .action-logout-form a {
+.action-confirm-form a, .action-login-form a, .action-logout-form a {
   margin-right: 10px;
 }
 .action-login-form input[type=text] {
