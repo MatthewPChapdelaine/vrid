@@ -200,9 +200,6 @@ label {
   padding-left: 30px;
   box-sizing: border-box;
 }
-.content.full {
-  width: 100%;
-}
 .row {
   display: flex;
   margin-bottom: 20px;
