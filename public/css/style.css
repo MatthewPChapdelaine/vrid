@@ -6,7 +6,7 @@ body {
   display: flex;
   position: relative;
   margin: 0;
-  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.8);
   font-family: var(--fonts);
   flex-direction: column;
   overflow-x: hidden;
@@ -225,10 +225,10 @@ label {
   margin: 0;
   margin-right: 10px;
 }
-.action-confirm-form, .action-login-form {
+.action-confirm-form, .action-login-form, .action-logout-form {
   margin: 20px 0;
 }
-.action-confirm-form a {
+.action-confirm-form a, .action-logout-form a {
   margin-right: 10px;
 }
 .action-login-form input[type=text] {
