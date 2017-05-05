@@ -1,6 +1,6 @@
 {
   "name": "assetwallet",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Counterparty web wallet",
   "main": "index.js",
   "scripts": {
