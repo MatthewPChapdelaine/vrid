@@ -100,6 +100,7 @@ p.inset {
 input[type=text] {
   display: flex;
   border: 0;
+  background-color: transparent;
   border-bottom: 2px solid;
   font-family: var(--fonts);
   line-height: 2;
@@ -131,6 +132,7 @@ input[type=number] {
   width: 100px;
   padding: 0;
   padding-left: 10px;
+  background-color: transparent;
   border: 0;
   border: 2px solid;
   font-family: var(--fonts);
