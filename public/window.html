@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+const walletWindow = window.open('/' + document.location.search, 'wallet', 'width=800,height=600');
+window.addEventListener('message', e => {
+  console.log('parent got message', e.data);
+});
+  </script>
+</body>
+</html/>
