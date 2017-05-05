@@ -35,6 +35,17 @@ const _requestRollup = p => rollup.rollup({
     const wrappedCode = '(function() {\n' + code + '\n})();\n';
     return wrappedCode;
   });
+const _requestIndexJsRollup = (() => {
+  let indexJsRollupPromise = null;
+
+  return () => {
+    if (!indexJsRollupPromise) {
+      indexJsRollupPromise = _requestRollup(path.join(__dirname, 'lib', 'index.js'));
+    }
+
+    return indexJsRollupPromise;
+  };
+})();
 
 class AssetWallet {
   constructor({
@@ -56,7 +67,7 @@ class AssetWallet {
           .replace('<!-- HEAD -->', head)
           .replace('<!-- BODY -->', body)
       ),
-      _requestRollup(path.join(__dirname, 'lib', 'index.js'))
+      _requestIndexJsRollup(),
     ])
       .then(([
         indexHtmlHandler,
