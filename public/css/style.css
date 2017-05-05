@@ -102,7 +102,8 @@ input[type=text] {
   border: 0;
   background-color: transparent;
   border-bottom: 2px solid;
-  font-family: var(--fonts);
+  font-family: var(--monospace-fonts);
+  font-size: 12px;
   line-height: 2;
   text-align: center;
   outline: none;
@@ -135,7 +136,7 @@ input[type=number] {
   background-color: transparent;
   border: 0;
   border: 2px solid;
-  font-family: var(--fonts);
+  font-family: var(--monospace-fonts);
   font-weight: 600;
   line-height: 34px;
   outline: none;
@@ -196,7 +197,7 @@ label {
   color: #FFF;
 }
 .content {
-  width: 780px;
+  width: 800px;
   padding-left: 30px;
   box-sizing: border-box;
 }
@@ -342,11 +343,14 @@ label {
 .private-key-button {
   width: 130px;
 }
-.send-asset-form input[type=text], .send-asset-form input[type=number] {
+.send-asset-form input[type=text], .send-asset-form input[type=number], .deploy-asset-form input[type=text], .deploy-asset-form input[type=number] {
   margin-right: 10px;
 }
 .send-asset-form input[type=text] {
   width: 300px;
+}
+.deploy-asset-form input[type=text] {
+  width: 550px;
 }
 .send-btc-form input[type=text], .send-btc-form input[type=number] {
   margin-right: 10px;

@@ -163,6 +163,14 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=submit class=button value="Send">
           </div>
         </form>
+        <form class=deploy-asset-form id=deploy-asset-form>
+          <h1>Deploy asset</h1>
+          <div class=row>
+            <input type=text class=center readonly id=deploy-asset-words-input>
+            <input type=number placeholder=0 id=deploy-asset-quantity-input>
+            <input type=submit class=button value="Deploy">
+          </div>
+        </form>
         <form class=issue-form id=issue-form>
           <h1>Issue asset</h1>
           <div class=row>
