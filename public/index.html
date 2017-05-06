@@ -80,6 +80,15 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class="button secondary" id=unpack-asset-logout-button>Log out</a>
       </div>
     </div>
+    <div class="statusbar create-order" style="display: none;">
+      <div class=statusbar-left>
+        <img class=icon id=create-order-icon>
+        <a id=create-order-username>username</a><span class=spacer>/</span><span>Create order</span>
+      </div>
+      <div class=statusbar-right>
+        <a class="button secondary" id=create-order-logout-button>Log out</a>
+      </div>
+    </div>
     <div class=content>
       <div class="page action-confirm" style="display: none;">
         <form class=action-confirm-form id=action-confirm-form>
@@ -272,6 +281,22 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           <div class=row>
             <input type=text placeholder="<asset json>" id=unpack-asset-input>
             <input type=submit class=button value="Unpack">
+          </div>
+        </form>
+      </div>
+      <div class="page create-order" style="display: none;">
+        <form class=create-order-form id=create-order-form>
+          <h1>Create order</h1>
+          <div class=row>
+            <input type=text placeholder="Enter src asset" id=create-order-src-asset-input>
+            <input type=number placeholder=0 id=create-order-src-quantity-input>
+          </div>
+          <div class=row>
+            <input type=text placeholder="Enter dst asset" id=create-order-dst-asset-input>
+            <input type=number placeholder=0 id=create-order-dst-quantity-input>
+          </div>
+          <div class=row>
+            <input type=submit class=button value="Create order">
           </div>
         </form>
       </div>
