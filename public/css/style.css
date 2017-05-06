@@ -343,11 +343,14 @@ label {
 .private-key-button {
   width: 130px;
 }
-.send-asset-form input[type=text], .send-asset-form input[type=number], .pack-asset-form input[type=number] {
+.send-asset-form input[type=text], .send-asset-form input[type=number], .pack-asset-form input[type=number], .unpack-asset-form input[type=text] {
   margin-right: 10px;
 }
 .send-asset-form input[type=text] {
   width: 300px;
+}
+.unpack-asset-form input[type=text] {
+  width: 550px;
 }
 .send-btc-form input[type=text], .send-btc-form input[type=number] {
   margin-right: 10px;
