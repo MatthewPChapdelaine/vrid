@@ -166,9 +166,11 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <form class=pack-asset-form id=pack-asset-form>
           <h1>Pack asset</h1>
           <div class=row>
-            <input type=text class=center readonly id=pack-asset-words-input>
             <input type=number placeholder=0 id=pack-asset-quantity-input>
             <input type=submit class=button value="Pack">
+          </div>
+          <div class=row>
+            <pre id=pack-asset-output></pre>
           </div>
         </form>
         <form class=issue-form id=issue-form>
