@@ -343,13 +343,13 @@ label {
 .private-key-button {
   width: 130px;
 }
-.send-asset-form input[type=text], .send-asset-form input[type=number], .deploy-asset-form input[type=text], .deploy-asset-form input[type=number] {
+.send-asset-form input[type=text], .send-asset-form input[type=number], .pack-asset-form input[type=text], .pack-asset-form input[type=number] {
   margin-right: 10px;
 }
 .send-asset-form input[type=text] {
   width: 300px;
 }
-.deploy-asset-form input[type=text] {
+.pack-asset-form input[type=text] {
   width: 550px;
 }
 .send-btc-form input[type=text], .send-btc-form input[type=number] {
