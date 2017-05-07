@@ -314,14 +314,19 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
       </div>
       <div class="page create-order" style="display: none;">
         <form class=create-order-form id=create-order-form>
-          <h1>Create order</h1>
+          <h1>Source</h1>
           <div class=row>
-            <input type=text placeholder="Enter src asset" id=create-order-src-asset-input>
+            <input type=text placeholder="Enter source asset" id=create-order-src-asset-input>
             <input type=number placeholder=0 id=create-order-src-quantity-input>
           </div>
+          <h1>Destination</h1>
           <div class=row>
-            <input type=text placeholder="Enter dst asset" id=create-order-dst-asset-input>
+            <input type=text placeholder="Enter destination asset" id=create-order-dst-asset-input>
             <input type=number placeholder=0 id=create-order-dst-quantity-input>
+          </div>
+          <h1>Options</h1>
+          <div class=row>
+            <input type=number placeholder="Expiration" id=create-order-expiration-input>
           </div>
           <div class=row>
             <input type=submit class=button value="Create order">
