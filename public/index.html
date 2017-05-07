@@ -329,6 +329,12 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=number placeholder="Expiration" id=create-order-expiration-input>
           </div>
           <div class=row>
+            <label>
+              <input type=checkbox id=create-order-require-immediate>
+              <span>Require immediate</span>
+            </label>
+          </div>
+          <div class=row>
             <input type=submit class=button value="Create order">
           </div>
         </form>
