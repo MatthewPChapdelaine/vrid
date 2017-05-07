@@ -80,6 +80,15 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class="button secondary" id=unpack-asset-logout-button>Log out</a>
       </div>
     </div>
+    <div class="statusbar order" style="display: none;">
+      <div class=statusbar-left>
+        <img class=icon id=order-icon>
+        <a id=order-username>username</a><span class=spacer>/</span><span id=order-id>order</span>
+      </div>
+      <div class=statusbar-right>
+        <a class="button secondary" id=order-logout-button>Log out</a>
+      </div>
+    </div>
     <div class="statusbar create-order" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=create-order-icon>
@@ -178,6 +187,30 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <h1>Help</h1>
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
+      <div class="page btc" style="display: none;">
+        <form class=send-btc-form id=send-btc-form>
+          <h1>Send BTC</h1>
+          <div class=row>
+            <input type=text placeholder="Enter destination address" id=send-btc-address-input>
+            <input type=number placeholder=0 id=send-btc-quantity-input>
+            <input type=submit class=button value="Send">
+          </div>
+        </form>
+        <h1>Help</h1>
+        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+      </div>
+      <div class="page xcp" style="display: none;">
+        <form class=send-xcp-form id=send-xcp-form>
+          <h1>Send XCP</h1>
+          <div class=row>
+            <input type=text placeholder="Enter destination address" id=send-xcp-address-input>
+            <input type=number placeholder=0 id=send-xcp-quantity-input>
+            <input type=submit class=button value="Send">
+          </div>
+        </form>
+        <h1>Help</h1>
+        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+      </div>
       <div class="page asset" style="display: none;">
         <form class=send-asset-form id=send-asset-form>
           <h1>Send asset</h1>
@@ -212,25 +245,24 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <h1>Help</h1>
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
-      <div class="page btc" style="display: none;">
-        <form class=send-btc-form id=send-btc-form>
-          <h1>Send BTC</h1>
-          <div class=row>
-            <input type=text placeholder="Enter destination address" id=send-btc-address-input>
-            <input type=number placeholder=0 id=send-btc-quantity-input>
-            <input type=submit class=button value="Send">
+      <div class="page order" style="display: none;">
+        <div class=orders-grid>
+          <div class=order>
+            <div class=order-side>
+              <div class=quantity id=order-src-asset-quantity></div>
+              <div class=name id=order-src-asset-name></div>
+            </div>
+            <div class=spacer>&#x21d2;</div>
+            <div class=order-side>
+              <div class=quantity id=order-dst-asset-quantity></div>
+              <div class=name id=order-dst-asset-name></div>
+            </div>
           </div>
-        </form>
-        <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
-      </div>
-      <div class="page xcp" style="display: none;">
-        <form class=send-xcp-form id=send-xcp-form>
-          <h1>Send XCP</h1>
+        </div>
+        <form class=cancel-order-form id=cancel-order-form>
+          <h1>Cancel order</h1>
           <div class=row>
-            <input type=text placeholder="Enter destination address" id=send-xcp-address-input>
-            <input type=number placeholder=0 id=send-xcp-quantity-input>
-            <input type=submit class=button value="Send">
+            <input type=submit class=button value="Cancel">
           </div>
         </form>
         <h1>Help</h1>
