@@ -236,20 +236,17 @@ label {
   margin-right: 10px;
 }
 .secret {
-  display: flex;
+  display: none;
   margin-right: 20px;
+  padding: 10px 20px;
   background-color: #000;
+  border-radius: 3px;
+  color: #FFF;
   font-family: var(--monospace-fonts);
   font-size: 13px;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
+  white-space: pre-wrap;
 }
-.secret > .value {
-  color: #FFF;
-  display: none;
-}
-.secret > .value.visible {
+.secret.visible {
   display: block;
 }
 .balance {
@@ -386,9 +383,6 @@ label {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
-}
-.private-key-button {
-  width: 130px;
 }
 .send-asset-form input[type=text],
 .send-asset-form input[type=number],

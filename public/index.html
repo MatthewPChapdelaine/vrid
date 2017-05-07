@@ -178,12 +178,10 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <pre id=mempool-data></pre>
         <h1>Secrets</h1>
         <div class=row>
-          <div class=secret id=private-key>
-            <div class=value id=private-key-value></div>
-          </div>
-          <a class="button private-key-button" id=show-private-key>Show private key</a>
-          <a class="button private-key-button" id=hide-private-key style="display: none;">Hide private key</a>
+          <a class=button id=show-secrets>Show secrets</a>
+          <a class=button id=hide-secrets style="display: none;">Hide secrets</a>
         </div>
+        <div class=secret id=secret-value></div>
         <h1>Help</h1>
         <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
       </div>
