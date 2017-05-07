@@ -54,7 +54,7 @@ code {
   padding: 15px 30px;
   margin-bottom: 20px;
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
-  font-size: 20px;
+  font-size: 18px;
   align-items: center;
 }
 .statusbar .statusbar-left, .statusbar .statusbar-right {
@@ -345,12 +345,19 @@ label {
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
-.orders-grid .order {
+.orders-grid .order:hover,
+.orders-grid .order:hover .order-side,
+.orders-grid .order:hover .order-spacer {
+  background-color: #000;
+  color: #FFF;
+  text-decoration: none;
+}
+.order {
   display: flex;
   margin-right: auto;
   margin-bottom: 10px;
 }
-.orders-grid .order .order-side {
+.order .order-side {
   display: flex;
   width: 300px;
   height: 100px;
@@ -361,7 +368,7 @@ label {
   flex-direction: column;
   box-sizing: border-box;
 }
-.orders-grid .order .spacer {
+.order .order-spacer {
   display: flex;
   padding: 20px;
   color: #000;
@@ -369,18 +376,11 @@ label {
   justify-content: center;
   align-items: center;
 }
-.orders-grid .order:hover,
-.orders-grid .order:hover .order-side,
-.orders-grid .order:hover .spacer {
-  background-color: #000;
-  color: #FFF;
-  text-decoration: none;
-}
-.orders-grid .order .order-side .name {
+.order .order-side .name {
   margin-left: auto;
   font-weight: 600;
 }
-.orders-grid .order .order-side .quantity {
+.order .order-side .quantity {
   display: flex;
   font-size: 30px;
   flex-grow: 1;
