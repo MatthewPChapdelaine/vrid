@@ -103,7 +103,7 @@ class AssetWallet {
             if (words) {
               const address = backendApi.getAddress(words);
 
-              backendApi.requestAssetBalances(address)
+              backendApi.requestLiveAssetBalances(address)
                 .then(assetSpecs => {
                   res.json({
                     address: address,
