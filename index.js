@@ -132,6 +132,35 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
+        app.post(path.join(prefix, '/api/pay'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+          const {words, body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.address === 'string' &&
+            typeof body.asset === 'string' &&
+            typeof body.quantity === 'number'
+          ) {
+            const {address, asset, quantity} = body;
+            const dst = address;
+            const src = backendApi.getAddress(words);
+            const wifKey = backendApi.getKey(words);
+
+            backendApi.requestCreateOrder(src, dst, asset, quantity, wifKey)
+              .then(txid => {
+                res.json({
+                  txid,
+                });
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else {
+            res.status(400);
+            res.send();
+          }
+        });
         app.post(path.join(prefix, '/api/buy'), cors, wordsParser, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 
