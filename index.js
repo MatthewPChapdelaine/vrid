@@ -87,6 +87,7 @@ class AssetWallet {
         });
         const cors = (req, res, next) => {
           res.set('Access-Control-Allow-Origin', req.get('Origin'));
+          res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
           res.set('Access-Control-Allow-Credentials', true);
 
           next();
@@ -116,6 +117,9 @@ class AssetWallet {
             _respondDefault();
           }
         };
+        app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
+          res.send();
+        });
         app.get(path.join(prefix, '/api/status'), cors, wordsParser, (req, res, next) => {
           const {words} = req;
           const address = backendApi.getAddress(words);
@@ -146,7 +150,7 @@ class AssetWallet {
             const src = backendApi.getAddress(words);
             const wifKey = backendApi.getKey(words);
 
-            backendApi.requestCreateOrder(src, dst, asset, quantity, wifKey)
+            backendApi.requestSend(src, dst, asset, quantity, wifKey)
               .then(txid => {
                 res.json({
                   txid,
