@@ -184,6 +184,38 @@ class AssetWallet {
             backendApi.requestPack(src, dst, asset, quantity, wifKey)
               .then(txid => {
                 res.json({
+                  words,
+                  asset,
+                  quantity,
+                  txid,
+                });
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else {
+            res.status(400);
+            res.send();
+          }
+        });
+        app.post(path.join(prefix, '/api/unpack'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+          const {words: dstWords, body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.words === 'string' &&
+            typeof body.asset === 'string' &&
+            typeof body.quantity === 'number'
+          ) {
+            const {words: srcWords, asset, quantity} = body;
+            const src = backendApi.getAddress(srcWords);
+            const wifKey = backendApi.getKey(srcWords);
+            const dst = backendApi.getAddress(dstWords);
+
+            backendApi.requestReceive(src, dst, asset, quantity, wifKey)
+              .then(txid => {
+                res.json({
                   txid,
                 });
               })
