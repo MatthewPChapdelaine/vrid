@@ -167,6 +167,35 @@ class AssetWallet {
             res.send();
           }
         });
+        app.post(path.join(prefix, '/api/pack'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+          const {words: srcWords, body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.asset === 'string' &&
+            typeof body.quantity === 'number'
+          ) {
+            const {asset, quantity} = body;
+            const src = backendApi.getAddress(srcWords);
+            const wifKey = backendApi.getKey(srcWords);
+            const dstWords = backendApi.makeWords();
+            const dst = backendApi.getAddress(dstWords);
+
+            backendApi.requestPack(src, dst, asset, quantity, wifKey)
+              .then(txid => {
+                res.json({
+                  txid,
+                });
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else {
+            res.status(400);
+            res.send();
+          }
+        });
         app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
 
         return Promise.resolve(app);
