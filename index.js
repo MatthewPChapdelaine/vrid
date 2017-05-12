@@ -64,7 +64,7 @@ class AssetWallet {
     const {prefix, head, body} = this;
 
     return Promise.all([
-      transclude.requestTranscludeRequestHandler(path.join(__dirname, 'public', 'index.html'), s =>
+      transclude.requestFileTranscludeRequestHandler(path.join(__dirname, 'public', 'index.html'), s =>
         s
           .replace('<!-- HEAD -->', head)
           .replace('<!-- BODY -->', body)
