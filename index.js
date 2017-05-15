@@ -92,35 +92,95 @@ class AssetWallet {
 
           next();
         };
-        const wordsParser = (req, res, next) => {
+        const cookieParser = (req, res, next) => {
           const cookieHeader = req.get('Cookie');
 
-          const _respondDefault = () => {
-            res.json({
-              address: null,
-              assets: [],
-            });
-          };
-
           if (cookieHeader) {
-            const c = cookie.parse(cookieHeader);
-            const words = c && c.words;
-
-            if (words) {
-              req.words = words;
-
-              next();
-            } else {
-              _respondDefault();
-            }
-          } else {
-            _respondDefault();
+            req.cookie = cookie.parse(cookieHeader);
           }
+
+          next();
+        };
+        const wordsParser = (req, res, next) => {
+          const words = req.cookie && req.cookie.words;
+
+          if (words) {
+            req.words = words;
+          }
+
+          next();
+        };
+        const ensureWordsDefault = defaultJson => (req, res, next) => {
+          if (req.words) {
+            next();
+          } else {
+            res.json(defaultJson);
+          }
+        };
+        const ensureWordsError = (req, res, next) => {
+          res.status(401);
+          res.send();
         };
         app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
           res.send();
         });
-        app.get(path.join(prefix, '/api/status'), cors, wordsParser, (req, res, next) => {
+        app.get(path.join(prefix, '/api/cookie/:key'), cors, cookieParser, (req, res, next) => {
+          const insecureString = req.cookie && req.cookie.insecure;
+
+          if (insecureString) {
+            const insecure = _jsonParse(insecureString);
+
+            if (typeof insecure === 'object' && insecure && !Array.isArray(insecure)) {
+              const {key} = req.params;
+              const value = insecure[key];
+
+              res.json({
+                result: value,
+              });
+            } else {
+              res.json({
+                result: null,
+              });
+            }
+          } else {
+            res.json({
+              result: null,
+            });
+          }
+        });
+        app.post(path.join(prefix, '/api/cookie/:key'), cors, bodyParserJson, (req, res, next) => {
+          const insecure = (() => {
+            const insecureString = req.cookie && req.cookie.insecure;
+
+            if (insecureString) {
+              const insecure = _jsonParse(insecureString);
+
+              if (typeof insecure === 'object' && insecure && !Array.isArray(insecure)) {
+                return insecure;
+              } else {
+                return {};
+              }
+            } else {
+              return {};
+            }
+          })();
+          const {key} = req.params;
+          const value = req.body;
+          insecure[key] = value;
+
+          res.setHeader('Set-Cookie', cookie.serialize('insecure', JSON.stringify(insecure), {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
+          }));
+
+          res.json({
+            result: value,
+          });
+        });
+        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsDefault({
+          address: null,
+          assets: [],
+        }), (req, res, next) => {
           const {words} = req;
           const address = backendApi.getAddress(words);
 
@@ -136,7 +196,7 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.post(path.join(prefix, '/api/pay'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 
           if (
@@ -165,7 +225,7 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/buy'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/buy'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 
           if (
@@ -200,7 +260,7 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/pack'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/pack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words: srcWords, body} = req;
 
           if (
@@ -232,7 +292,7 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/unpack'), cors, wordsParser, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/unpack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words: dstWords, body} = req;
 
           if (
@@ -287,6 +347,21 @@ class AssetWallet {
       });
   }
 }
+
+const _jsonParse = s => {
+  let error = null;
+  let result;
+  try {
+    result = JSON.parse(s);
+  } catch (err) {
+    error = err;
+  }
+  if (!error) {
+    return result;
+  } else {
+    return undefined;
+  }
+};
 
 module.exports = opts => new AssetWallet(opts);
 
