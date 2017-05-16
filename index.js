@@ -165,7 +165,7 @@ class AssetWallet {
             }
           })();
           const {key} = req.params;
-          const value = req.body;
+          const {value = null} = req.body;
           insecure[key] = value;
 
           res.setHeader('Set-Cookie', cookie.serialize('insecure', JSON.stringify(insecure), {
