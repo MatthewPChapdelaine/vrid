@@ -184,10 +184,17 @@ class AssetWallet {
           const {words} = req;
           const address = backendApi.getAddress(words);
 
-          backendApi.requestLiveAssetBalances(address)
-            .then(assetSpecs => {
+          Promise.all([
+            backendApi.requestLiveBTCBalance(address)
+            backendApi.requestLiveAssetBalances(address),
+          ])
+            .then(([
+              btcBalance,
+              assetSpecs,
+            ]) => {
               res.json({
                 address: address,
+                balance: btcBalance,
                 assets: assetSpecs,
               });
             })
