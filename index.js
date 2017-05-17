@@ -281,7 +281,7 @@ class AssetWallet {
             const dstWords = backendApi.makeWords();
             const dst = backendApi.getAddress(dstWords);
 
-            backendApi.requestPack(src, dst, asset, quantity, wifKey)
+            backendApi.requestPackAsset(src, dst, asset, quantity, wifKey)
               .then(txid => {
                 res.json({
                   words,
