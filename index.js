@@ -313,7 +313,7 @@ class AssetWallet {
             const wifKey = backendApi.getKey(srcWords);
             const dst = backendApi.getAddress(dstWords);
 
-            backendApi.requestReceive(src, dst, asset, quantity, wifKey)
+            backendApi.requestReceiveAsset(src, dst, asset, quantity, wifKey)
               .then(txid => {
                 res.json({
                   txid,
