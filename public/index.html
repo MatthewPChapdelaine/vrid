@@ -14,7 +14,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
   <div class=body>
     <div class="statusbar login" style="display: none;">
       <div class=statusbar-left>
-        <span class=spacer>Filewallet</span>
+        <span class=spacer>Wallet</span>
       </div>
     </div>
     <div class="statusbar account" style="display: none;">
@@ -35,15 +35,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class="button secondary" id=btc-logout-button>Log out</a>
       </div>
     </div>
-    <div class="statusbar xcp" style="display: none;">
-      <div class=statusbar-left>
-        <img class=icon id=xcp-icon>
-        <a id=xcp-username>username</a><span class=spacer>/</span><span>XCP</span>
-      </div>
-      <div class=statusbar-right>
-        <a class="button secondary" id=xcp-logout-button>Log out</a>
-      </div>
-    </div>
     <div class="statusbar asset" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=asset-icon>
@@ -60,15 +51,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
       </div>
       <div class=statusbar-right>
         <a class="button secondary" id=create-asset-logout-button>Log out</a>
-      </div>
-    </div>
-    <div class="statusbar create-burn" style="display: none;">
-      <div class=statusbar-left>
-        <img class=icon id=create-burn-icon>
-        <a id=create-burn-username>username</a><span class=spacer>/</span><span>Create burn</span>
-      </div>
-      <div class=statusbar-right>
-        <a class="button secondary" id=create-burn-logout-button>Log out</a>
       </div>
     </div>
     <div class="statusbar unpack-asset" style="display: none;">
@@ -136,7 +118,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
         </form>
         <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page login" style="display: none;">
         <form class=login-form id=login-form>
@@ -148,22 +130,17 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
         </form>
         <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page account" style="display: none;">
         <a class=balance id=btc-balance>
           <div class=value id=btc-balance-value>0</div>
           <div class=label>BTC</div>
         </a>
-        <a class=balance id=xcp-balance>
-          <div class=value id=xcp-balance-value>0</div>
-          <div class=label>XCP</div>
-        </a>
         <h1>Assets</h1>
         <div class=assets-grid id=assets-grid></div>
         <div class="row assets-create">
           <a class=button id=create-asset>Create asset</a>
-          <a class=button id=create-burn>Create burn</a>
           <a class=button id=unpack-asset>Unpack asset</a>
         </div>
         <h1>Orders</h1>
@@ -183,7 +160,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         </div>
         <div class=secret id=secret-value></div>
         <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page btc" style="display: none;">
         <form class=send-btc-form id=send-btc-form>
@@ -195,19 +172,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
         </form>
         <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
-      </div>
-      <div class="page xcp" style="display: none;">
-        <form class=send-xcp-form id=send-xcp-form>
-          <h1>Send XCP</h1>
-          <div class=row>
-            <input type=text placeholder="Enter destination address" id=send-xcp-address-input>
-            <input type=number placeholder=0 id=send-xcp-quantity-input>
-            <input type=submit class=button value="Send">
-          </div>
-        </form>
-        <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page asset" style="display: none;">
         <form class=send-asset-form id=send-asset-form>
@@ -241,7 +206,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
         </form>
         <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page order" style="display: none;">
         <div class=order>
@@ -262,14 +227,13 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
         </form>
         <h1>Help</h1>
-        <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page create-asset" style="display: none;">
         <form class=create-asset-form id=create-asset-form>
           <h1>Create asset</h1>
           <div class=row>
             <input type=text placeholder="Enter asset name" id=create-asset-name-input>
-            <a class=button id=create-asset-generate>Generate</a>
           </div>
          <div class=row>
             <input type=text placeholder="Enter asset description" id=create-asset-description-input>
@@ -287,20 +251,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=submit class=button value="Create asset">
           </div>
           <h1>Help</h1>
-          <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
-        </form>
-      </div>
-      <div class="page create-burn" style="display: none;">
-        <form class=create-burn-form id=create-burn-form>
-          <h1>Create burn</h1>
-          <div class=row>
-            <input type=number placeholder=0 id=create-burn-quantity-input>
-          </div>
-          <div class=row>
-            <input type=submit class=button value="Create burn">
-          </div>
-          <h1>Help</h1>
-          <p class=inset>Filewallet does not store your keys. <a href="">Learn more</a></p>
+          <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
         </form>
       </div>
       <div class="page unpack-asset" style="display: none;">

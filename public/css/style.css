@@ -404,15 +404,8 @@ label {
 .send-btc-form input[type=text] {
   width: 300px;
 }
-.send-xcp-form input[type=text], .send-xcp-form input[type=number] {
-  margin-right: 10px;
-}
-.send-xcp-form input[type=text] {
-  width: 300px;
-}
 .create-asset-form input[type=text] {
   width: 300px;
-  margin-right: 10px;
   text-align: left;
 }
 .issue-form input[type=number] {
