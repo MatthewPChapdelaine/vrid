@@ -185,7 +185,7 @@ class AssetWallet {
           const address = backendApi.getAddress(words);
 
           Promise.all([
-            backendApi.requestLiveBTCBalance(address)
+            backendApi.requestLiveBTCBalance(address),
             backendApi.requestLiveAssetBalances(address),
           ])
             .then(([
