@@ -118,8 +118,12 @@ class AssetWallet {
           }
         };
         const ensureWordsError = (req, res, next) => {
-          res.status(401);
-          res.send();
+          if (req.words) {
+            next();
+          } else {
+            res.status(401);
+            res.send();
+          }
         };
         app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
           res.send();
@@ -268,7 +272,7 @@ class AssetWallet {
           }
         });
         app.post(path.join(prefix, '/api/pack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
-          const {words: srcWords, body} = req;
+          const {words, body} = req;
 
           if (
             typeof body == 'object' && body &&
@@ -276,8 +280,8 @@ class AssetWallet {
             typeof body.quantity === 'number'
           ) {
             const {asset, quantity} = body;
-            const src = backendApi.getAddress(srcWords);
-            const wifKey = backendApi.getKey(srcWords);
+            const src = backendApi.getAddress(words);
+            const wifKey = backendApi.getKey(words);
             const dstWords = backendApi.makeWords();
             const dst = backendApi.getAddress(dstWords);
 
