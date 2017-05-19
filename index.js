@@ -277,6 +277,28 @@ class AssetWallet {
           if (
             typeof body == 'object' && body &&
             typeof body.words === 'string' &&
+            typeof body.value === 'number'
+          ) {
+            const {words: dstWords, value} = body;
+            const src = backendApi.getAddress(srcWords);
+            const wifKey = backendApi.getKey(srcWords);
+            const dst = backendApi.getAddress(dstWords);
+
+            backendApi.requestPackBTC(src, dst, value, wifKey)
+              .then(txid => {
+                res.json({
+                  words: dstWords,
+                  value,
+                  txid,
+                });
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else if (
+            typeof body == 'object' && body &&
+            typeof body.words === 'string' &&
             typeof body.asset === 'string' &&
             typeof body.quantity === 'number'
           ) {
@@ -307,6 +329,26 @@ class AssetWallet {
           const {words: dstWords, body} = req;
 
           if (
+            typeof body == 'object' && body &&
+            typeof body.words === 'string' &&
+            typeof body.value === 'number'
+          ) {
+            const {words: srcWords, value} = body;
+            const src = backendApi.getAddress(srcWords);
+            const wifKey = backendApi.getKey(srcWords);
+            const dst = backendApi.getAddress(dstWords);
+
+            backendApi.requestReceiveBTC(src, dst, value, wifKey)
+              .then(txid => {
+                res.json({
+                  txid,
+                });
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else if (
             typeof body == 'object' && body &&
             typeof body.words === 'string' &&
             typeof body.asset === 'string' &&
