@@ -80,6 +80,15 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class="button secondary" id=create-order-logout-button>Log out</a>
       </div>
     </div>
+    <div class="statusbar mempool" style="display: none;">
+      <div class=statusbar-left>
+        <img class=icon id=mempool-icon>
+        <a id=mempool-username>username</a><span class=spacer>/</span><span>asset</span>
+      </div>
+      <div class=statusbar-right>
+        <a class="button secondary" id=asset-logout-button>Log out</a>
+      </div>
+    </div>
     <div class=content>
       <div class="page action-confirm" style="display: none;">
         <form class=action-confirm-form id=action-confirm-form>
@@ -150,9 +159,8 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         </div>
         <h1>Monitor</h1>
         <div class=row>
-          <a class=button id=get-mempool>Get mempool</a>
+          <a class=button id=mempool>Mempool</a>
         </div>
-        <pre id=mempool-data></pre>
         <h1>Secrets</h1>
         <div class=row>
           <a class=button id=show-secrets>Show secrets</a>
@@ -287,6 +295,15 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           <div class=row>
             <input type=submit class=button value="Create order">
           </div>
+        </form>
+      </div>
+      <div class="page mempool" style="display: none;">
+        <form class=mempool-form id=mempool-form>
+          <h1>Mempool</h1>
+          <div class=row>
+            <input type=submit class=button value="Refresh">
+          </div>
+          <pre id=mempool-data></pre>
         </form>
       </div>
     </div>
