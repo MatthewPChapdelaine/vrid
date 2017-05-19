@@ -53,13 +53,13 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class="button secondary" id=create-asset-logout-button>Log out</a>
       </div>
     </div>
-    <div class="statusbar unpack-asset" style="display: none;">
+    <div class="statusbar unpack" style="display: none;">
       <div class=statusbar-left>
-        <img class=icon id=unpack-asset-icon>
-        <a id=unpack-asset-username>username</a><span class=spacer>/</span><span>Unpack asset</span>
+        <img class=icon id=unpack-icon>
+        <a id=unpack-username>username</a><span class=spacer>/</span><span>Unpack object</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=unpack-asset-logout-button>Log out</a>
+        <a class="button secondary" id=unpack-logout-button>Log out</a>
       </div>
     </div>
     <div class="statusbar order" style="display: none;">
@@ -141,7 +141,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <div class=assets-grid id=assets-grid></div>
         <div class="row assets-create">
           <a class=button id=create-asset>Create asset</a>
-          <a class=button id=unpack-asset>Unpack asset</a>
+          <a class=button id=unpack>Unpack object</a>
         </div>
         <h1>Orders</h1>
         <div class=orders-grid id=orders-grid></div>
@@ -253,11 +253,11 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
         </form>
       </div>
-      <div class="page unpack-asset" style="display: none;">
-        <form class=unpack-asset-form id=unpack-asset-form>
-          <h1>Unpack asset</h1>
+      <div class="page unpack" style="display: none;">
+        <form class=unpack-form id=unpack-form>
+          <h1>Unpack object</h1>
           <div class=row>
-            <input type=text placeholder="<asset json>" id=unpack-asset-input>
+            <input type=text placeholder="<asset json>" id=unpack-input>
             <input type=submit class=button value="Unpack">
           </div>
         </form>
