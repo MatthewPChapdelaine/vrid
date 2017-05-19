@@ -272,23 +272,23 @@ class AssetWallet {
           }
         });
         app.post(path.join(prefix, '/api/pack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
-          const {words, body} = req;
+          const {words: srcWords, body} = req;
 
           if (
             typeof body == 'object' && body &&
+            typeof body.words === 'string' &&
             typeof body.asset === 'string' &&
             typeof body.quantity === 'number'
           ) {
-            const {asset, quantity} = body;
-            const src = backendApi.getAddress(words);
-            const wifKey = backendApi.getKey(words);
-            const dstWords = backendApi.makeWords();
+            const {words: dstWords, asset, quantity} = body;
+            const src = backendApi.getAddress(srcWords);
+            const wifKey = backendApi.getKey(srcWords);
             const dst = backendApi.getAddress(dstWords);
 
             backendApi.requestPackAsset(src, dst, asset, quantity, wifKey)
               .then(txid => {
                 res.json({
-                  words,
+                  words: dstWords,
                   asset,
                   quantity,
                   txid,
