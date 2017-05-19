@@ -384,10 +384,11 @@ label {
   justify-content: center;
   align-items: center;
 }
+.pack-btc-form input[type=number],
 .send-asset-form input[type=text],
 .send-asset-form input[type=number],
 .pack-asset-form input[type=number],
-.unpack-asset-form input[type=text],
+.unpack-form input[type=text],
 .create-order-form input[type=text] {
   margin-right: 10px;
 }
@@ -395,7 +396,7 @@ label {
 .create-order-form input[type=text] {
   width: 300px;
 }
-.unpack-asset-form input[type=text] {
+.unpack-form input[type=text] {
   width: 550px;
 }
 .send-btc-form input[type=text], .send-btc-form input[type=number] {
