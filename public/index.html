@@ -161,12 +161,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <div class=row>
           <a class=button id=monitor>Open monitor</a>
         </div>
-        <h1>Secrets</h1>
-        <div class=row>
-          <a class=button id=show-secrets>Show secrets</a>
-          <a class=button id=hide-secrets style="display: none;">Hide secrets</a>
-        </div>
-        <div class=secret id=secret-value></div>
         <h1>Help</h1>
         <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
@@ -320,6 +314,14 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
           <pre id=mempool-data></pre>
         </form>
+        <form class=secrets-form id=secrets-form>
+          <h1>Secrets</h1>
+          <div class=row>
+            <a class=button id=show-secrets>Show secrets</a>
+            <a class=button id=hide-secrets style="display: none;">Hide secrets</a>
+          </div>
+          <div class=secret id=secret-value></div>
+        </div>
       </div>
     </div>
   </div>
