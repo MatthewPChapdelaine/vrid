@@ -389,11 +389,13 @@ label {
 .send-asset-form input[type=number],
 .pack-asset-form input[type=number],
 .unpack-form input[type=text],
-.create-order-form input[type=text] {
+.create-order-form input[type=text],
+.monitor-tx-form input[type=text] {
   margin-right: 10px;
 }
 .send-asset-form input[type=text],
-.create-order-form input[type=text] {
+.create-order-form input[type=text],
+.monitor-tx-form input[type=text] {
   width: 300px;
 }
 .unpack-form input[type=text] {
