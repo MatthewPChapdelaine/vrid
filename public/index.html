@@ -80,13 +80,13 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class="button secondary" id=create-order-logout-button>Log out</a>
       </div>
     </div>
-    <div class="statusbar mempool" style="display: none;">
+    <div class="statusbar monitor" style="display: none;">
       <div class=statusbar-left>
-        <img class=icon id=mempool-icon>
-        <a id=mempool-username>username</a><span class=spacer>/</span><span>Mempool</span>
+        <img class=icon id=monitor-icon>
+        <a id=monitor-username>username</a><span class=spacer>/</span><span>Monitor</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=mempool-logout-button>Log out</a>
+        <a class="button secondary" id=monitor-logout-button>Log out</a>
       </div>
     </div>
     <div class=content>
@@ -159,7 +159,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         </div>
         <h1>Monitor</h1>
         <div class=row>
-          <a class=button id=mempool>Mempool</a>
+          <a class=button id=monitor>Open monitor</a>
         </div>
         <h1>Secrets</h1>
         <div class=row>
@@ -297,11 +297,18 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
         </form>
       </div>
-      <div class="page mempool" style="display: none;">
+      <div class="page monitor" style="display: none;">
+        <form class=blocks-form id=blocks-form>
+          <h1>Blocks</h1>
+          <div class=row>
+            <input type=submit class=button value="Refresh blocks">
+          </div>
+          <pre id=blocks-data></pre>
+        </form>
         <form class=mempool-form id=mempool-form>
           <h1>Mempool</h1>
           <div class=row>
-            <input type=submit class=button value="Refresh">
+            <input type=submit class=button value="Refresh mempool">
           </div>
           <pre id=mempool-data></pre>
         </form>
