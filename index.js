@@ -276,6 +276,30 @@ class AssetWallet {
             res.send();
           }
         });
+        app.post(path.join(prefix, '/api/unauthorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
+          const {authorized, body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.url === 'string'
+          ) {
+            const {authorized} = req;
+            const {url} = body;
+            const index = authorized.indexOf(url);
+            if (index !== -1) {
+              authorized.splice(index, 1);
+            }
+
+            _setCookie(res, 'authorized', authorized);
+
+            res.json({
+              result: authorized,
+            });
+          } else {
+            res.status(400);
+            res.send();
+          }
+        });
         app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, authorizedParser, ensureAuthorizedError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 

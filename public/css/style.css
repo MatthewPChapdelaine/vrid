@@ -238,7 +238,7 @@ label {
 }
 .authorized-servers .authorized-server {
   display: flex;
-  width: 400px;
+  width: 500px;
   margin-bottom: 2px;
   padding: 3px 10px;
   background-color: #EEE;
@@ -258,6 +258,9 @@ label {
 .authorized-servers .authorized-server .remove:hover {
   color: #000;
   text-decoration: none;
+}
+.authorized-servers-placeholder {
+  font-size: 14px;
 }
 .secret {
   display: none;
