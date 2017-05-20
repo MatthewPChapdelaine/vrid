@@ -178,7 +178,6 @@ class AssetWallet {
         const _setCookie = (res, key, value, {httpOnly = true} = {}) => {
           const valueString = typeof value === 'string' ? value : JSON.stringify(value);
           res.setHeader('Set-Cookie', cookie.serialize(key, valueString, {
-            domain: origin,
             path: '/',
             httpOnly: httpOnly,
             maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
