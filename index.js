@@ -140,7 +140,19 @@ class AssetWallet {
             res.send();
           }
         };
-        const ensureWordsDefault = defaultJson => (req, res, next) => {
+        const ensureWordsDefault = (req, res, next) => {
+          if (!req.words) {
+            const words = backendApi.makeWords();
+            req.words = words;
+
+            _setCookie(res, 'words', words, {
+              httpOnly: false,
+            });
+          }
+
+          next();
+        };
+        const ensureWordsRespond = defaultJson => (req, res, next) => {
           if (req.words) {
             next();
           } else {
@@ -163,9 +175,12 @@ class AssetWallet {
             res.send();
           }
         };
-        const _setCookie = (res, key, value) => {
-          res.setHeader('Set-Cookie', cookie.serialize(key, JSON.stringify(value), {
-            httpOnly: true,
+        const _setCookie = (res, key, value, {httpOnly = true} = {}) => {
+          const valueString = typeof value === 'string' ? value : JSON.stringify(value);
+          res.setHeader('Set-Cookie', cookie.serialize(key, valueString, {
+            domain: origin,
+            path: '/',
+            httpOnly: httpOnly,
             maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
           }));
         };
@@ -222,7 +237,7 @@ class AssetWallet {
             result: value,
           });
         });
-        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsDefault({
+        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsRespond({
           address: null,
           assets: [],
         }), (req, res, next) => {
@@ -418,7 +433,7 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/unpack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/unpack'), cors, cookieParser, wordsParser, ensureWordsDefault, bodyParserJson, (req, res, next) => {
           const {words: dstWords, body} = req;
 
           if (
