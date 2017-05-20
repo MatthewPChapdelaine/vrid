@@ -124,6 +124,14 @@ class AssetWallet {
 
           next();
         };
+        const ensureOriginError = (req, res, next) => {
+          if (req.get('Origin') === origin) {
+            next();
+          } else {
+            res.status(401);
+            res.send();
+          }
+        };
         const ensureWordsDefault = defaultJson => (req, res, next) => {
           if (req.words) {
             next();
@@ -226,15 +234,13 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.get(path.join(prefix, '/api/authorize'), cors, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
+        app.get(path.join(prefix, '/api/authorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
           const {authorized, body} = req;
 
           if (
             typeof body == 'object' && body &&
             typeof body.url === 'string'
           ) {
-
-          if (req.get('Origin') === origin) {
             const {authorized} = req;
             const {url} = body;
 
