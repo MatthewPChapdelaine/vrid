@@ -59,10 +59,11 @@ class AssetWallet {
     this.prefix = prefix;
     this.head = head;
     this.body = body;
+    this.origin = origin;
   }
 
   requestApp() {
-    const {prefix, head, body} = this;
+    const {prefix, head, body, origin} = this;
 
     return Promise.all([
       transclude.requestFileTranscludeRequestHandler(path.join(__dirname, 'public', 'index.html'), s =>
@@ -114,13 +115,20 @@ class AssetWallet {
         const authorizedParser = (req, res, next) => {
           const authorizedString = req.cookie && req.cookie.authorized;
 
-          if (authorizedString) {
-            const authorized = _jsonParse(authorizedString);
+          const authorized = (() => {
+            if (authorizedString) {
+              const authorized = _jsonParse(authorizedString);
 
-            if (authorized !== undefined) {
-              req.authorized = authorized;
+              if (typeof authorized === 'object' && Array.isArray(authorized) && authorized.every(e => typeof e === 'string')) {
+                return authorized;
+              } else {
+                return [];
+              }
+            } else {
+              return [];
             }
-          }
+          })();
+          req.authorized = authorized;
 
           next();
         };
@@ -234,7 +242,7 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.get(path.join(prefix, '/api/authorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/authorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
           const {authorized, body} = req;
 
           if (
@@ -243,7 +251,6 @@ class AssetWallet {
           ) {
             const {authorized} = req;
             const {url} = body;
-
             if (!authorized.includes(url)) {
               authorized.push(url);
             }
@@ -254,7 +261,7 @@ class AssetWallet {
               result: authorized,
             });
           } else {
-            res.status(401);
+            res.status(400);
             res.send();
           }
         });
