@@ -54,6 +54,7 @@ class AssetWallet {
     prefix = '',
     head = '',
     body = '',
+    origin = '',
   } = {}) {
     this.prefix = prefix;
     this.head = head;
@@ -110,6 +111,19 @@ class AssetWallet {
 
           next();
         };
+        const authorizedParser = (req, res, next) => {
+          const authorizedString = req.cookie && req.cookie.authorized;
+
+          if (authorizedString) {
+            const authorized = _jsonParse(authorizedString);
+
+            if (authorized !== undefined) {
+              req.authorized = authorized;
+            }
+          }
+
+          next();
+        };
         const ensureWordsDefault = defaultJson => (req, res, next) => {
           if (req.words) {
             next();
@@ -124,6 +138,12 @@ class AssetWallet {
             res.status(401);
             res.send();
           }
+        };
+        const _setCookie = (res, key, value) => {
+          res.setHeader('Set-Cookie', cookie.serialize(key, JSON.stringify(value), {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
+          }));
         };
         app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
           res.send();
@@ -172,20 +192,18 @@ class AssetWallet {
           const {value = null} = req.body;
           insecure[key] = value;
 
-          res.setHeader('Set-Cookie', cookie.serialize('insecure', JSON.stringify(insecure), {
-            httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
-          }));
+          _setCookie(res, 'insecure', insecure);
 
           res.json({
             result: value,
           });
         });
-        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsDefault({
+        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, authorizedParser, ensureWordsDefault({
           address: null,
           assets: [],
+          authorized: [],
         }), (req, res, next) => {
-          const {words} = req;
+          const {words, authorized} = req;
           const address = backendApi.getAddress(words);
 
           Promise.all([
@@ -200,12 +218,39 @@ class AssetWallet {
                 address: address,
                 balance: btcBalance,
                 assets: assetSpecs,
+                authorized: authorized,
               });
             })
             .catch(err => {
               res.status(500);
               res.send(err.stack);
             });
+        });
+        app.get(path.join(prefix, '/api/authorize'), cors, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
+          const {authorized, body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.url === 'string'
+          ) {
+
+          if (req.get('Origin') === origin) {
+            const {authorized} = req;
+            const {url} = body;
+
+            if (!authorized.includes(url)) {
+              authorized.push(url);
+            }
+
+            _setCookie(res, 'authorized', authorized);
+
+            res.json({
+              result: authorized,
+            });
+          } else {
+            res.status(401);
+            res.send();
+          }
         });
         app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
