@@ -90,44 +90,23 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
       </div>
     </div>
     <div class=content>
-      <div class="page action-confirm" style="display: none;">
-        <form class=action-confirm-form id=action-confirm-form>
+      <div class="page authorize" style="display: none;">
+        <form class=authorize-form id=authorize-form>
           <div class=statusbar>
             <div class=statusbar-left>
-              <h2>Confirm transaction</h2>
+              <h2>Authorize access</h2>
             </div>
             <div class=statusbar-right>
-              <h3 id=action-username>username</h3>
-              <a class="button secondary" id=action-confirm-logout-button>Log out</a>
+              <h3 id=authorize-username>username</h3>
+              <!-- <a class="button secondary" id=authorize-logout-button>Log out</a> -->
             </div>
           </div>
-          <p><b>Send</b> <b>0.5 BTC</b> to <b>LOLLERCOPTER</b>?</p>
+          <p><b>Authorize <b id=authorize-url></b> to access your account? <a class=link>Learn more</a></p>
           <div class=row>
             <a class="button primary" id=approve-button>Approve</a>
             <a class="button tertiary" id=reject-button>Reject</a>
           </div>
         </form>
-      </div>
-      <div class="page action-login" style="display: none;">
-        <form class=action-login-form id=action-login-form>
-          <h2>Log in to wallet</h2>
-          <div class=row>
-            <input type=text class=center placeholder="Enter wallet words" id=action-login-input>
-            <a class=button id=action-login-generate>Generate</a>
-            <input type=submit class=button value="Log in">
-          </div>
-        </form>
-      </div>
-      <div class="page action-logout" style="display: none;">
-        <form class=action-logout-form id=action-logout-form>
-          <h1>Log out of wallet</h1>
-          <div class=row>
-            <a class="button primary" id=action-logout-confirm-button>Confirm</a>
-            <a class=button id=action-logout-cancel-button>Cancel</a>
-          </div>
-        </form>
-        <h1>Help</h1>
-        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page login" style="display: none;">
         <form class=login-form id=login-form>
