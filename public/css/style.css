@@ -216,23 +216,19 @@ label {
 .login-form input[type=text] {
   flex-grow: 1;
 }
-.action-confirm .statusbar {
+.authorize .statusbar {
   margin: 0;
   padding: 0;
   box-shadow: none;
 }
-.action-confirm .statusbar h3 {
+.authorize .statusbar h3 {
   margin: 0;
   margin-right: 10px;
 }
-.action-confirm-form, .action-login-form, .action-logout-form {
+.authorize-form {
   margin: 20px 0;
 }
-.action-confirm-form a, .action-login-form a, .action-logout-form a {
-  margin-right: 10px;
-}
-.action-login-form input[type=text] {
-  width: 550px;
+.authorize-form a {
   margin-right: 10px;
 }
 .secret {
