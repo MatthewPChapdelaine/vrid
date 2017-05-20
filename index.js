@@ -229,12 +229,11 @@ class AssetWallet {
             result: value,
           });
         });
-        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, authorizedParser, ensureWordsDefault({
+        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsDefault({
           address: null,
           assets: [],
-          authorized: [],
         }), (req, res, next) => {
-          const {words, authorized} = req;
+          const {words} = req;
           const address = backendApi.getAddress(words);
 
           Promise.all([
