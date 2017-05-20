@@ -155,13 +155,6 @@ class AssetWallet {
             res.send();
           }
         };
-        const ensureAuthorizedDefault = defaultJson => (req, res, next) => {
-          if (req.authorized.includes(req.get('Origin'))) {
-            next();
-          } else {
-            res.json(defaultJson);
-          }
-        };
         const ensureAuthorizedError = (req, res, next) => {
           if (req.authorized.includes(req.get('Origin'))) {
             next();
@@ -255,11 +248,9 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.get(path.join(prefix, '/api/authorized'), cors, cookieParser, authorizedParser, ensureAuthorizedDefault({
-          result: false,
-        }), (req, res, next) => {
+        app.get(path.join(prefix, '/api/authorizedServers'), cors, cookieParser, authorizedParser, (req, res, next) => {
           res.json({
-            result: true,
+            result: req.authorized,
           });
         });
         app.post(path.join(prefix, '/api/authorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {

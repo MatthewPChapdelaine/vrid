@@ -231,6 +231,34 @@ label {
 .authorize-form a {
   margin-right: 10px;
 }
+.authorized-servers {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.authorized-servers .authorized-server {
+  display: flex;
+  width: 400px;
+  margin-bottom: 2px;
+  padding: 3px 10px;
+  background-color: #EEE;
+  border-radius: 3px;
+  align-items: center;
+  box-sizing: border-box;
+}
+.authorized-servers .authorized-server .url {
+  margin-right: auto;
+  font-size: 14px;
+}
+.authorized-servers .authorized-server .remove {
+  margin-bottom: 3px;
+  color: #666;
+  font-size: 17px;
+}
+.authorized-servers .authorized-server .remove:hover {
+  color: #000;
+  text-decoration: none;
+}
 .secret {
   display: none;
   margin-right: 20px;
