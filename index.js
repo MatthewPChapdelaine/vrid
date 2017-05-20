@@ -248,7 +248,6 @@ class AssetWallet {
                 address: address,
                 balance: btcBalance,
                 assets: assetSpecs,
-                authorized: authorized,
               });
             })
             .catch(err => {
