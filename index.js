@@ -256,6 +256,13 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
+        app.get(path.join(prefix, '/api/authorized'), cors, cookieParser, authorizedParser, ensureAuthorizedDefault({
+          result: false,
+        }), (req, res, next) => {
+          res.json({
+            result: true,
+          });
+        });
         app.post(path.join(prefix, '/api/authorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
           const {authorized, body} = req;
 
@@ -278,13 +285,6 @@ class AssetWallet {
             res.status(400);
             res.send();
           }
-        });
-        app.get(path.join(prefix, '/api/authorized'), cors, cookieParser, authorizedParser, ensureAuthorizedDefault({
-          result: false,
-        }), (req, res, next) => {
-          res.json({
-            result: true,
-          });
         });
         app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, authorizedParser, ensureAuthorizedError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
