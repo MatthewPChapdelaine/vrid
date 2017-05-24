@@ -1,7 +1,7 @@
 {
-  "name": "assetwallet",
-  "version": "0.0.31",
-  "description": "Counterparty web wallet",
+  "name": "vrid",
+  "version": "0.0.1",
+  "description": "Identity management for metaverse servers",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/modulesio/cntrprty/issues"
   },
-  "homepage": "https://github.com/modulesio/cntrprty#readme",
+  "homepage": "https://github.com/modulesio/vrid#readme",
   "dependencies": {
     "assetwallet-static": "0.0.4",
     "body-parser": "^1.17.1",
