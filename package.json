@@ -1,6 +1,6 @@
 {
   "name": "vrid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Identity management for metaverse servers",
   "main": "index.js",
   "scripts": {
