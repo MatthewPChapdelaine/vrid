@@ -58,8 +58,9 @@ class AssetWallet {
     body = '',
     origin = '',
     sso: {
-      key = 'password',
+      secretKey = 'password',
       emailDomain = 'example.com',
+      redirectUrl = 'http://example.com/sso',
     } = {},
   } = {}) {
     this.prefix = prefix;
@@ -67,8 +68,9 @@ class AssetWallet {
     this.body = body;
     this.origin = origin;
     this.sso = {
-      key,
+      secretKey,
       emailDomain,
+      redirectUrl,
     };
   }
 
@@ -200,10 +202,10 @@ class AssetWallet {
           const {query} = req;
           const {sso: ssoBase64String = ''} = query;
           const ssoString = new Buffer(ssoBase64String, 'base64').toString('utf8');
-          const sso = querystring.parse(ssoString);
-          const {nonce, return_sso_url: cbUrl} = sso;
+          const ssoJson = querystring.parse(ssoString);
+          const {nonce} = ssoJson;
 
-          if (nonce && cbUrl) {
+          if (nonce) {
             const {words} = req;
             const address = backendApi.getAddress(words);
 
@@ -223,7 +225,7 @@ class AssetWallet {
               hmac.update(payloadBase64);
               return hmac.digest('hex');
             })();
-            const redirectUrl = cbUrl + '?' + querystring.stringify({
+            const redirectUrl = sso.redirectUrl + '?' + querystring.stringify({
               sso: payloadBase64,
               sig: sigHex,
             });
