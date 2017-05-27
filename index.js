@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
+const querystring = require('querystring');
+const crypto = require('crypto');
 
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
@@ -55,15 +57,23 @@ class AssetWallet {
     head = '',
     body = '',
     origin = '',
+    sso: {
+      key = 'password',
+      emailDomain = 'example.com',
+    } = {},
   } = {}) {
     this.prefix = prefix;
     this.head = head;
     this.body = body;
     this.origin = origin;
+    this.sso = {
+      key,
+      emailDomain,
+    };
   }
 
   requestApp() {
-    const {prefix, head, body, origin} = this;
+    const {prefix, head, body, origin, sso} = this;
 
     return Promise.all([
       transclude.requestFileTranscludeRequestHandler(path.join(__dirname, 'public', 'index.html'), s =>
@@ -185,6 +195,43 @@ class AssetWallet {
         };
         app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
           res.send();
+        });
+        app.get(path.join(prefix, '/sso'), cors, cookieParser, wordsParser, ensureWordsDefault, (req, res, next) => {
+          const {query} = req;
+          const {sso: ssoBase64String = ''} = query;
+          const ssoString = new Buffer(ssoBase64String, 'base64').toString('utf8');
+          const sso = querystring.parse(ssoString);
+          const {nonce, return_sso_url: cbUrl} = sso;
+
+          if (nonce && cbUrl) {
+            const {words} = req;
+            const address = backendApi.getAddress(words);
+
+            const payload = {
+              nonce: nonce,
+              email: address + '@' + sso.emailDomain,
+              require_activation: false,
+              external_id: address,
+              username: address,
+              name: address,
+              suppress_welcome_message: true,
+            };
+            const payloadString = querystring.stringify(payload);
+            const payloadBase64 = new Buffer(payloadString, 'utf8').toString('base64');
+            const sigHex = (() => {
+              const hmac = crypto.createHmac('sha256', sso.secretKey);
+              hmac.update(payloadBase64);
+              return hmac.digest('hex');
+            })();
+            const redirectUrl = cbUrl + '?' + querystring.stringify({
+              sso: payloadBase64,
+              sig: sigHex,
+            });
+            res.redirect(redirectUrl);
+          } else {
+            res.status(400);
+            res.send('Invalid sso query');
+          }
         });
         app.get(path.join(prefix, '/api/cookie/:key'), cors, cookieParser, (req, res, next) => {
           const insecureString = req.cookie && req.cookie.insecure;
