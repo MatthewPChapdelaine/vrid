@@ -23,7 +23,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <span id=account-username>username</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=account-logout-button>Log out</a>
+        <a class=button id=account-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar btc" style="display: none;">
@@ -32,7 +32,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=btc-username>username</a><span class=spacer>/</span><span>CRD</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=btc-logout-button>Log out</a>
+        <a class=button id=btc-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar asset" style="display: none;">
@@ -41,7 +41,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=asset-username>username</a><span class=spacer>/</span><span id=asset-assetname>asset</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=asset-logout-button>Log out</a>
+        <a class=button id=asset-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar create-asset" style="display: none;">
@@ -50,7 +50,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=create-asset-username>username</a><span class=spacer>/</span><span>Create asset</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=create-asset-logout-button>Log out</a>
+        <a class=button id=create-asset-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar unpack" style="display: none;">
@@ -59,7 +59,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=unpack-username>username</a><span class=spacer>/</span><span>Unpack object</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=unpack-logout-button>Log out</a>
+        <a class=button id=unpack-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar order" style="display: none;">
@@ -68,7 +68,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=order-username>username</a><span class=spacer>/</span><span id=order-id>order</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=order-logout-button>Log out</a>
+        <a class=button id=order-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar create-order" style="display: none;">
@@ -77,7 +77,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=create-order-username>username</a><span class=spacer>/</span><span>Create order</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=create-order-logout-button>Log out</a>
+        <a class=button id=create-order-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar monitor" style="display: none;">
@@ -86,7 +86,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a id=monitor-username>username</a><span class=spacer>/</span><span>Monitor</span>
       </div>
       <div class=statusbar-right>
-        <a class="button secondary" id=monitor-logout-button>Log out</a>
+        <a class=button id=monitor-login-button>Switch account</a>
       </div>
     </div>
     <div class=content>
@@ -98,7 +98,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             </div>
             <div class=statusbar-right>
               <h3 id=authorize-username>username</h3>
-              <!-- <a class="button secondary" id=authorize-logout-button>Log out</a> -->
             </div>
           </div>
           <p>Authorize <b id=authorize-url></b> to access your account? <a class=link>Learn more</a></p>
@@ -110,7 +109,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
       </div>
       <div class="page login" style="display: none;">
         <form class=login-form id=login-form>
-          <h1>Log in</h1>
+          <h1>Switch account</h1>
           <div class=row>
             <input type=text class=center placeholder="Enter key words" id=login-input>
             <a class=button id=login-generate>Generate</a>
