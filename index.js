@@ -15,9 +15,17 @@ const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const Busboy = require('busboy');
-const transclude = require('transclude');
 const backendApi = require('./lib/backend-api');
 
+const _readFile = (p, opts) => new Promise((accept, reject) => {
+  fs.readFile(p, opts, (err, data) => {
+    if (!err) {
+      accept(data);
+    } else {
+      reject(err);
+    }
+  });
+});
 const _requestRollup = p => rollup.rollup({
   entry: p,
   plugins: [
@@ -54,8 +62,6 @@ const _requestIndexJsRollup = (() => {
 class AssetWallet {
   constructor({
     prefix = '',
-    head = '',
-    body = '',
     origin = '',
     sso: {
       secretKey = 'password',
@@ -64,8 +70,6 @@ class AssetWallet {
     } = {},
   } = {}) {
     this.prefix = prefix;
-    this.head = head;
-    this.body = body;
     this.origin = origin;
     this.sso = {
       secretKey,
@@ -75,25 +79,20 @@ class AssetWallet {
   }
 
   requestApp() {
-    const {prefix, head, body, origin, sso} = this;
+    const {prefix, origin, sso} = this;
 
     return Promise.all([
-      transclude.requestFileTranscludeRequestHandler(path.join(__dirname, 'public', 'index.html'), s =>
-        s
-          .replace('<!-- HEAD -->', head)
-          .replace('<!-- BODY -->', body)
-      ),
+      _readFile(path.join(__dirname, 'public', 'index.html'), 'utf8'),
       _requestIndexJsRollup(),
     ])
       .then(([
-        indexHtmlHandler,
+        indexHtml,
         indexJs,
       ])  => {
         const app = express();
         app.get(path.join(prefix, '/'), (req, res, next) => {
           res.type('text/html');
-
-          indexHtmlHandler(req, res, next);
+          res.send(indexHtml);
         });
         app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
           res.type('application/javascript');
