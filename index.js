@@ -123,26 +123,6 @@ class AssetWallet {
 
           next();
         };
-        const authorizedParser = (req, res, next) => {
-          const authorizedString = req.cookie && req.cookie.authorized;
-
-          const authorized = (() => {
-            if (authorizedString) {
-              const authorized = _jsonParse(authorizedString);
-
-              if (typeof authorized === 'object' && Array.isArray(authorized) && authorized.every(e => typeof e === 'string')) {
-                return authorized;
-              } else {
-                return [];
-              }
-            } else {
-              return [];
-            }
-          })();
-          req.authorized = authorized;
-
-          next();
-        };
         const ensureOriginError = (req, res, next) => {
           if (req.get('Origin') === origin) {
             next();
@@ -172,14 +152,6 @@ class AssetWallet {
         };
         const ensureWordsError = (req, res, next) => {
           if (req.words) {
-            next();
-          } else {
-            res.status(401);
-            res.send();
-          }
-        };
-        const ensureAuthorizedError = (req, res, next) => {
-          if (req.authorized.includes(req.get('Origin'))) {
             next();
           } else {
             res.status(401);
@@ -310,59 +282,7 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.get(path.join(prefix, '/api/authorizedServers'), cors, cookieParser, authorizedParser, (req, res, next) => {
-          res.json({
-            result: req.authorized,
-          });
-        });
-        app.post(path.join(prefix, '/api/authorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
-          const {authorized, body} = req;
-
-          if (
-            typeof body == 'object' && body &&
-            typeof body.url === 'string'
-          ) {
-            const {authorized} = req;
-            const {url} = body;
-            if (!authorized.includes(url)) {
-              authorized.push(url);
-            }
-
-            _setCookie(res, 'authorized', authorized);
-
-            res.json({
-              result: authorized,
-            });
-          } else {
-            res.status(400);
-            res.send();
-          }
-        });
-        app.post(path.join(prefix, '/api/unauthorize'), cors, ensureOriginError, cookieParser, authorizedParser, bodyParserJson, (req, res, next) => {
-          const {authorized, body} = req;
-
-          if (
-            typeof body == 'object' && body &&
-            typeof body.url === 'string'
-          ) {
-            const {authorized} = req;
-            const {url} = body;
-            const index = authorized.indexOf(url);
-            if (index !== -1) {
-              authorized.splice(index, 1);
-            }
-
-            _setCookie(res, 'authorized', authorized);
-
-            res.json({
-              result: authorized,
-            });
-          } else {
-            res.status(400);
-            res.send();
-          }
-        });
-        app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, authorizedParser, ensureAuthorizedError, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 
           if (
@@ -391,7 +311,7 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/buy'), cors, cookieParser, wordsParser, ensureWordsError, authorizedParser, ensureAuthorizedError, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/buy'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 
           if (
@@ -426,7 +346,7 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/pack'), cors, cookieParser, wordsParser, ensureWordsError, authorizedParser, ensureAuthorizedError, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/pack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words: srcWords, body} = req;
 
           if (
