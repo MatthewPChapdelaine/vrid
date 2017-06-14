@@ -53,15 +53,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class=button id=create-asset-login-button>Switch account</a>
       </div>
     </div>
-    <div class="statusbar unpack" style="display: none;">
-      <div class=statusbar-left>
-        <img class=icon id=unpack-icon>
-        <a id=unpack-username>username</a><span class=spacer>/</span><span>Unpack object</span>
-      </div>
-      <div class=statusbar-right>
-        <a class=button id=unpack-login-button>Switch account</a>
-      </div>
-    </div>
     <div class="statusbar order" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=order-icon>
@@ -111,7 +102,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <div class=assets-grid id=assets-grid></div>
         <div class="row assets-create">
           <a class=button id=create-asset>Create asset</a>
-          <a class=button id=unpack>Unpack object</a>
         </div>
         <h1>Orders</h1>
         <div class=orders-grid id=orders-grid></div>
@@ -134,16 +124,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=submit class=button value="Send">
           </div>
         </form>
-        <form class=pack-btc-form id=pack-btc-form>
-          <h1>Pack CRD</h1>
-          <div class=row>
-            <input type=number placeholder=0 id=pack-btc-value-input>
-            <input type=submit class=button value="Pack">
-          </div>
-          <pre id=pack-btc-output></pre>
-        </form>
-        <h1>Help</h1>
-        <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page asset" style="display: none;">
         <form class=send-asset-form id=send-asset-form>
@@ -153,14 +133,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=number placeholder=0 id=send-asset-quantity-input>
             <input type=submit class=button value="Send">
           </div>
-        </form>
-        <form class=pack-asset-form id=pack-asset-form>
-          <h1>Pack asset</h1>
-          <div class=row>
-            <input type=number placeholder=0 id=pack-asset-quantity-input>
-            <input type=submit class=button value="Pack">
-          </div>
-          <pre id=pack-asset-output></pre>
         </form>
         <form class=issue-form id=issue-form>
           <h1>Issue asset</h1>
@@ -214,15 +186,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
           </div>
           <h1>Help</h1>
           <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
-        </form>
-      </div>
-      <div class="page unpack" style="display: none;">
-        <form class=unpack-form id=unpack-form>
-          <h1>Unpack object</h1>
-          <div class=row>
-            <input type=text placeholder="<asset json>" id=unpack-input>
-            <input type=submit class=button value="Unpack">
-          </div>
         </form>
       </div>
       <div class="page create-order" style="display: none;">
