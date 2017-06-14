@@ -232,21 +232,19 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.post(path.join(prefix, '/api/pay'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/charge'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
           const {words, body} = req;
 
           if (
             typeof body == 'object' && body &&
-            typeof body.address === 'string' &&
             typeof body.asset === 'string' &&
-            typeof body.quantity === 'number'
+            typeof body.quantity === 'number' &&
+            typeof body.srcAddress === 'string' &&
+            typeof body.dstAddress === 'string'
           ) {
-            const {address, asset, quantity} = body;
-            const dst = address;
-            const src = backendApi.getAddress(words);
-            const wifKey = backendApi.getKey(words);
+            const {asset, quantity, srcAddress, dstAddress} = body;
 
-            backendApi.requestSend(src, dst, asset, quantity, wifKey)
+            backendApi.requestCharge(asset, quantity, srcAddress, dstAddress)
               .then(txid => {
                 res.json({
                   txid,
@@ -261,148 +259,6 @@ class AssetWallet {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/buy'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
-          const {words, body} = req;
-
-          if (
-            typeof body == 'object' && body &&
-            typeof body.srcAsset === 'string' &&
-            typeof body.srcQuantity === 'number' &&
-            typeof body.dstAsset === 'string' &&
-            typeof body.dstQuantity === 'number'
-          ) {
-            const {srcAsset, srcQuantity, dstAsset, dstQuantity} = body;
-            const address = backendApi.getAddress(words);
-            const wifKey = backendApi.getKey(words);
-            const expiration = 1;
-
-            backendApi.requestCreateOrder(address, srcAsset, srcQuantity, dstAsset, dstQuantity, expiration, wifKey, {immediate: true})
-              .then(txid => {
-                res.json({
-                  txid,
-                });
-              })
-              .catch(err => {
-                if (err.code === 'EIMMEDIATE') {
-                  res.status(412);
-                  res.send();
-                } else {
-                  res.status(500);
-                  res.send(err.stack);
-                }
-              });
-          } else {
-            res.status(400);
-            res.send();
-          }
-        });
-        app.post(path.join(prefix, '/api/pack'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
-          const {words: srcWords, body} = req;
-
-          if (
-            typeof body == 'object' && body &&
-            typeof body.words === 'string' &&
-            typeof body.value === 'number'
-          ) {
-            const {words: dstWords, value} = body;
-            const src = backendApi.getAddress(srcWords);
-            const wifKey = backendApi.getKey(srcWords);
-            const dst = backendApi.getAddress(dstWords);
-
-            backendApi.requestPackBTC(src, dst, value, wifKey)
-              .then(txid => {
-                res.json({
-                  words: dstWords,
-                  value,
-                  txid,
-                });
-              })
-              .catch(err => {
-                res.status(500);
-                res.send(err.stack);
-              });
-          } else if (
-            typeof body == 'object' && body &&
-            typeof body.words === 'string' &&
-            typeof body.asset === 'string' &&
-            typeof body.quantity === 'number'
-          ) {
-            const {words: dstWords, asset, quantity} = body;
-            const src = backendApi.getAddress(srcWords);
-            const wifKey = backendApi.getKey(srcWords);
-            const dst = backendApi.getAddress(dstWords);
-
-            backendApi.requestPackAsset(src, dst, asset, quantity, wifKey)
-              .then(txid => {
-                res.json({
-                  words: dstWords,
-                  asset,
-                  quantity,
-                  txid,
-                });
-              })
-              .catch(err => {
-                res.status(500);
-                res.send(err.stack);
-              });
-          } else {
-            res.status(400);
-            res.send();
-          }
-        });
-        app.post(path.join(prefix, '/api/unpack'), cors, cookieParser, wordsParser, ensureWordsDefault, bodyParserJson, (req, res, next) => {
-          const {words: dstWords, body} = req;
-
-          if (
-            typeof body == 'object' && body &&
-            typeof body.words === 'string' &&
-            typeof body.value === 'number'
-          ) {
-            const {words: srcWords, value} = body;
-            const src = backendApi.getAddress(srcWords);
-            const wifKey = backendApi.getKey(srcWords);
-            const dst = backendApi.getAddress(dstWords);
-
-            backendApi.requestReceiveBTC(src, dst, value, wifKey)
-              .then(txid => {
-                res.json({
-                  txid,
-                });
-              })
-              .catch(err => {
-                res.status(500);
-                res.send(err.stack);
-              });
-          } else if (
-            typeof body == 'object' && body &&
-            typeof body.words === 'string' &&
-            typeof body.asset === 'string' &&
-            typeof body.quantity === 'number'
-          ) {
-            const {words: srcWords, asset, quantity} = body;
-            const src = backendApi.getAddress(srcWords);
-            const wifKey = backendApi.getKey(srcWords);
-            const dst = backendApi.getAddress(dstWords);
-
-            backendApi.requestReceiveAsset(src, dst, asset, quantity, wifKey)
-              .then(txid => {
-                res.json({
-                  txid,
-                });
-              })
-              .catch(err => {
-                res.status(500);
-                res.send(err.stack);
-              });
-          } else {
-            res.status(400);
-            res.send();
-          }
-        });
-        app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
-
-        return Promise.resolve(app);
-      });
   }
 
   listen({
