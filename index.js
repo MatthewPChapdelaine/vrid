@@ -214,17 +214,12 @@ class AssetWallet {
           const address = backendApi.getAddress(words);
 
           Promise.all([
-            backendApi.requestLiveBTCBalance(address),
-            backendApi.requestLiveAssetBalances(address),
+            backendApi.requestUnconfirmedBalances(address),
           ])
-            .then(([
-              btcBalance,
-              assetSpecs,
-            ]) => {
+            .then(balances => {
               res.json({
-                address: address,
-                balance: btcBalance,
-                assets: assetSpecs,
+                address,
+                balances,
               });
             })
             .catch(err => {

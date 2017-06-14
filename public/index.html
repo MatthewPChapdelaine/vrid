@@ -26,15 +26,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <a class=button id=account-login-button>Switch account</a>
       </div>
     </div>
-    <div class="statusbar btc" style="display: none;">
-      <div class=statusbar-left>
-        <img class=icon id=btc-icon>
-        <a id=btc-username>username</a><span class=spacer>/</span><span>CRD</span>
-      </div>
-      <div class=statusbar-right>
-        <a class=button id=btc-login-button>Switch account</a>
-      </div>
-    </div>
     <div class="statusbar asset" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=asset-icon>
@@ -94,10 +85,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
       </div>
       <div class="page account" style="display: none;">
-        <a class=balance id=btc-balance>
-          <div class=value id=btc-balance-value>0</div>
-          <div class=label>CRD</div>
-        </a>
         <h1>Assets</h1>
         <div class=assets-grid id=assets-grid></div>
         <div class="row assets-create">
@@ -114,16 +101,6 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
         </div>
         <h1>Help</h1>
         <p class=inset>Wallet does not store your keys. <a href="">Learn more</a></p>
-      </div>
-      <div class="page btc" style="display: none;">
-        <form class=send-btc-form id=send-btc-form>
-          <h1>Send CRD</h1>
-          <div class=row>
-            <input type=text placeholder="Enter destination address" id=send-btc-address-input>
-            <input type=number placeholder=0 id=send-btc-value-input>
-            <input type=submit class=button value="Send">
-          </div>
-        </form>
       </div>
       <div class="page asset" style="display: none;">
         <form class=send-asset-form id=send-asset-form>
