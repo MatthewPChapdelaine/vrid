@@ -14,7 +14,6 @@ const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
-const Busboy = require('busboy');
 const eccrypto = require('eccrypto-sync');
 const backendApi = require('./lib/backend-api');
 

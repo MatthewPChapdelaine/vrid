@@ -19,7 +19,6 @@
   "dependencies": {
     "assetwallet-static": "0.0.4",
     "body-parser": "^1.17.1",
-    "busboy": "^0.2.14",
     "cookie": "^0.3.1",
     "creaturejs": "0.0.5",
     "eccrypto-sync": "0.0.1",
