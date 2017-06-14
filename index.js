@@ -84,6 +84,7 @@ class Vrid {
         indexJs,
       ]) => {
         const app = express();
+
         app.get(path.join(prefix, '/'), (req, res, next) => {
           res.type('text/html');
           res.send(indexHtml);
@@ -254,6 +255,8 @@ class Vrid {
             res.send();
           }
         });
+
+        return app;
       });
   }
 
