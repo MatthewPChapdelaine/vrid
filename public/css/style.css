@@ -333,24 +333,24 @@ label {
 .assets-create .button {
   margin-right: 10px;
 }
-.orders-grid {
+.charges-grid {
   display: flex;
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
-.orders-grid .order:hover,
-.orders-grid .order:hover .order-side,
-.orders-grid .order:hover .order-spacer {
+.charges-grid .charge:hover,
+.charges-grid .charge:hover .charge-side,
+.charges-grid .charge:hover .charge-spacer {
   background-color: #000;
   color: #FFF;
   text-decoration: none;
 }
-.order {
+.charge {
   display: flex;
   margin-right: auto;
   margin-bottom: 10px;
 }
-.order .order-side {
+.charge .charge-side {
   display: flex;
   width: 300px;
   height: 100px;
@@ -361,7 +361,7 @@ label {
   flex-direction: column;
   box-sizing: border-box;
 }
-.order .order-spacer {
+.charge .charge-spacer {
   display: flex;
   padding: 20px;
   color: #000;
@@ -369,11 +369,11 @@ label {
   justify-content: center;
   align-items: center;
 }
-.order .order-side .name {
+.charge .charge-side .name {
   margin-left: auto;
   font-weight: 600;
 }
-.order .order-side .quantity {
+.charge .charge-side .quantity {
   display: flex;
   font-size: 30px;
   flex-grow: 1;
