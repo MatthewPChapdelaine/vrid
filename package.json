@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/modulesio/vrid#readme",
   "dependencies": {
-    "assetwallet-static": "0.0.4",
     "body-parser": "^1.17.1",
     "cookie": "^0.3.1",
     "creaturejs": "0.0.5",
