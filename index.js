@@ -256,7 +256,9 @@ class Vrid {
           }
         });
 
-        return app;
+        app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
+
+        return Promise.resolve(app);
       });
   }
 
