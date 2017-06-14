@@ -59,7 +59,7 @@ const _requestIndexJsRollup = (() => {
   };
 })();
 
-class AssetWallet {
+class Vrid {
   constructor({
     prefix = '',
     origin = '',
@@ -298,9 +298,9 @@ const _jsonParse = s => {
   }
 };
 
-module.exports = opts => new AssetWallet(opts);
+module.exports = opts => new Vrid(opts);
 
 if (!module.parent) {
-  new AssetWallet()
+  new Vrid()
     .listen();
 }
