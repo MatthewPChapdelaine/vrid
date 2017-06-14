@@ -104,7 +104,7 @@ input[type=text] {
   border-bottom: 2px solid;
   font-family: var(--monospace-fonts);
   font-size: 12px;
-  line-height: 2;
+  line-height: 3;
   text-align: center;
   outline: none;
 }
@@ -380,32 +380,22 @@ label {
   justify-content: center;
   align-items: center;
 }
-.pack-btc-form input[type=number],
 .send-asset-form input[type=text],
 .send-asset-form input[type=number],
-.pack-asset-form input[type=number],
-.unpack-form input[type=text],
-.create-order-form input[type=text],
-.monitor-tx-form input[type=text] {
+.charge-form input[type=text] {
   margin-right: 10px;
 }
-.send-asset-form input[type=text],
-.create-order-form input[type=text],
-.monitor-tx-form input[type=text] {
+.send-asset-form input[type=text] {
   width: 300px;
 }
-.unpack-form input[type=text] {
-  width: 550px;
+.charge-form input[type=text]:not(:only-child) {
+  width: 390px;
 }
-.send-btc-form input[type=text], .send-btc-form input[type=number] {
-  margin-right: 10px;
-}
-.send-btc-form input[type=text] {
-  width: 300px;
+.charge-form input[type=text]:only-child {
+  width: 500px;
 }
 .create-asset-form input[type=text] {
   width: 300px;
-  text-align: left;
 }
 .issue-form input[type=number] {
   margin-right: 10px;
