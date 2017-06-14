@@ -206,56 +206,6 @@ class AssetWallet {
             res.send('Invalid sso query');
           }
         });
-        app.get(path.join(prefix, '/api/cookie/:key'), cors, cookieParser, (req, res, next) => {
-          const insecureString = req.cookie && req.cookie.insecure;
-
-          if (insecureString) {
-            const insecure = _jsonParse(insecureString);
-
-            if (typeof insecure === 'object' && insecure && !Array.isArray(insecure)) {
-              const {key} = req.params;
-              const value = insecure[key];
-
-              res.json({
-                result: value,
-              });
-            } else {
-              res.json({
-                result: null,
-              });
-            }
-          } else {
-            res.json({
-              result: null,
-            });
-          }
-        });
-        app.post(path.join(prefix, '/api/cookie/:key'), cors, bodyParserJson, (req, res, next) => {
-          const insecure = (() => {
-            const insecureString = req.cookie && req.cookie.insecure;
-
-            if (insecureString) {
-              const insecure = _jsonParse(insecureString);
-
-              if (typeof insecure === 'object' && insecure && !Array.isArray(insecure)) {
-                return insecure;
-              } else {
-                return {};
-              }
-            } else {
-              return {};
-            }
-          })();
-          const {key} = req.params;
-          const {value = null} = req.body;
-          insecure[key] = value;
-
-          _setCookie(res, 'insecure', insecure);
-
-          res.json({
-            result: value,
-          });
-        });
         app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsRespond({
           address: null,
           assets: [],
