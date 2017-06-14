@@ -5,7 +5,6 @@ const querystring = require('querystring');
 const crypto = require('crypto');
 
 const mkdirp = require('mkdirp');
-const rimraf = require('rimraf');
 const express = require('express');
 const bodyParser = require('body-parser');
 const bodyParserJson = bodyParser.json();
