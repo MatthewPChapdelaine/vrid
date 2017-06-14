@@ -15,7 +15,7 @@ const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const eccrypto = require('eccrypto-sync');
-const backendApi = require('./lib/backend-api');
+const backendApiLib = require('./lib/backend-api');
 
 const _readFile = (p, opts) => new Promise((accept, reject) => {
   fs.readFile(p, opts, (err, data) => {
@@ -47,22 +47,12 @@ const _requestRollup = p => rollup.rollup({
     const wrappedCode = '(function() {\n' + code + '\n})();\n';
     return wrappedCode;
   });
-const _requestIndexJsRollup = (() => {
-  let indexJsRollupPromise = null;
-
-  return () => {
-    if (!indexJsRollupPromise) {
-      indexJsRollupPromise = _requestRollup(path.join(__dirname, 'lib', 'index.js'));
-    }
-
-    return indexJsRollupPromise;
-  };
-})();
 
 class Vrid {
   constructor({
     prefix = '',
     origin = '',
+    crdsUrl = '',
     sso: {
       secretKey = 'password',
       emailDomain = 'example.com',
@@ -71,6 +61,7 @@ class Vrid {
   } = {}) {
     this.prefix = prefix;
     this.origin = origin;
+    this.crdsUrl = crdsUrl;
     this.sso = {
       secretKey,
       emailDomain,
@@ -79,7 +70,11 @@ class Vrid {
   }
 
   requestApp() {
-    const {prefix, origin, sso} = this;
+    const {prefix, origin, crdsUrl, sso} = this;
+
+    const backendApi = backendApiLib({crdsUrl});
+    const _requestIndexJsRollup = () => _requestRollup(path.join(__dirname, 'lib', 'index.js'))
+      .then(code => code.replace(/CRDS_URL/g, () => crdsUrl));
 
     return Promise.all([
       _readFile(path.join(__dirname, 'public', 'index.html'), 'utf8'),
@@ -88,7 +83,7 @@ class Vrid {
       .then(([
         indexHtml,
         indexJs,
-      ])  => {
+      ]) => {
         const app = express();
         app.get(path.join(prefix, '/'), (req, res, next) => {
           res.type('text/html');
@@ -260,6 +255,7 @@ class Vrid {
             res.send();
           }
         });
+      });
   }
 
   listen({
