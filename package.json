@@ -22,6 +22,7 @@
     "busboy": "^0.2.14",
     "cookie": "^0.3.1",
     "creaturejs": "0.0.5",
+    "eccrypto-sync": "0.0.1",
     "express": "^4.15.2",
     "js-cookie": "^2.1.4",
     "mkdirp": "^0.5.1",

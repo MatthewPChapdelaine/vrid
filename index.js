@@ -15,6 +15,7 @@ const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
 const rollupPluginJson = require('rollup-plugin-json');
 const Busboy = require('busboy');
+const eccrypto = require('eccrypto-sync');
 const backendApi = require('./lib/backend-api');
 
 const _readFile = (p, opts) => new Promise((accept, reject) => {
@@ -114,11 +115,11 @@ class AssetWallet {
 
           next();
         };
-        const wordsParser = (req, res, next) => {
-          const words = req.cookie && req.cookie.words;
+        const privateKeyParser = (req, res, next) => {
+          const privateKey = req.cookie && req.cookie.privateKey;
 
-          if (words) {
-            req.words = words;
+          if (privateKey) {
+            req.privateKey = privateKey;
           }
 
           next();
@@ -131,33 +132,33 @@ class AssetWallet {
             res.send();
           }
         };
-        const ensureWordsDefault = (req, res, next) => {
-          if (!req.words) {
-            const words = backendApi.makeWords();
-            req.words = words;
+        const ensurePrivateKeyDefault = (req, res, next) => {
+          if (!req.privateKey) {
+            const privateKey = crypto.randomBytes(32).toString('base64');
+            req.privateKey = privateKey;
 
-            _setCookie(res, 'words', words, {
+            _setCookie(res, 'privateKey', privateKey, {
               httpOnly: false,
             });
           }
 
           next();
         };
-        const ensureWordsRespond = defaultJson => (req, res, next) => {
-          if (req.words) {
+        const ensurePrivateKeyRespond = defaultJson => (req, res, next) => {
+          if (req.privateKey) {
             next();
           } else {
             res.json(defaultJson);
           }
         };
-        const ensureWordsError = (req, res, next) => {
-          if (req.words) {
+        /* const ensurePrivateKeyError = (req, res, next) => {
+          if (req.privateKey) {
             next();
           } else {
             res.status(401);
             res.send();
           }
-        };
+        }; */
         const _setCookie = (res, key, value, {httpOnly = true} = {}) => {
           const valueString = typeof value === 'string' ? value : JSON.stringify(value);
           res.setHeader('Set-Cookie', cookie.serialize(key, valueString, {
@@ -169,7 +170,7 @@ class AssetWallet {
         app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
           res.send();
         });
-        app.get(path.join(prefix, '/sso'), cors, cookieParser, wordsParser, ensureWordsDefault, (req, res, next) => {
+        app.get(path.join(prefix, '/sso'), cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {query} = req;
           const {sso: ssoBase64String = ''} = query;
           const ssoString = new Buffer(ssoBase64String, 'base64').toString('utf8');
@@ -177,8 +178,11 @@ class AssetWallet {
           const {nonce} = ssoJson;
 
           if (nonce) {
-            const {words} = req;
-            const address = backendApi.getAddress(words);
+            const {privateKey} = req;
+            const privateKeyBuffer = new Buffer(privateKey, 'base64');
+            const publicKey = eccrypto.getPublic(privateKeyBuffer);
+            const publicKeyString = publicKey.toString('base64');
+            const address = publicKeyString;
 
             const payload = {
               nonce: nonce,
@@ -206,12 +210,15 @@ class AssetWallet {
             res.send('Invalid sso query');
           }
         });
-        app.get(path.join(prefix, '/api/status'), cors, cookieParser, wordsParser, ensureWordsRespond({
+        app.get(path.join(prefix, '/api/status'), cors, cookieParser, privateKeyParser, ensurePrivateKeyRespond({
           address: null,
           assets: [],
         }), (req, res, next) => {
-          const {words} = req;
-          const address = backendApi.getAddress(words);
+          const {privateKey} = req;
+          const privateKeyBuffer = new Buffer(privateKey, 'base64');
+          const publicKey = eccrypto.getPublic(privateKeyBuffer);
+          const publicKeyString = publicKey.toString('base64');
+          const address = publicKeyString;
 
           Promise.all([
             backendApi.requestUnconfirmedBalances(address),
@@ -227,8 +234,8 @@ class AssetWallet {
               res.send(err.stack);
             });
         });
-        app.post(path.join(prefix, '/api/charge'), cors, cookieParser, wordsParser, ensureWordsError, bodyParserJson, (req, res, next) => {
-          const {words, body} = req;
+        app.post(path.join(prefix, '/api/charge'), cors, cookieParser, bodyParserJson, (req, res, next) => {
+          const {body} = req;
 
           if (
             typeof body == 'object' && body &&
