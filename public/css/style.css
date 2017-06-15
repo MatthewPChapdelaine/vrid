@@ -404,6 +404,28 @@ label {
   left: 44px;
   fill: #4CAF50;
 }
+.charge .charge-spacer + .charge-side {
+  margin-right: 10px;
+}
+.charge .remove {
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: auto;
+  padding: 0 20px;
+  padding-bottom: 3px;
+  border: 2px solid;
+  font-size: 20px;
+  color: #000;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+.charge .remove:hover {
+  background-color: #000;
+  border-color: transparent;
+  color: #FFF;
+  text-decoration: none;
+}
 .charge .charge-spacer {
   display: flex;
   padding: 20px;
