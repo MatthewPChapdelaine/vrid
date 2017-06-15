@@ -213,10 +213,12 @@ class Vrid {
 
           backendApi.requestUnconfirmedBalances(address)
             .then(balances => {
-              const assets = Object.keys(balances).map(asset => ({
-                asset: asset,
-                quantity: balances[asset],
-              }));
+              const assets = Object.keys(balances)
+                .filter(asset => /^[A-Z]+$/.test(asset))
+                .map(asset => ({
+                  asset: asset,
+                  quantity: balances[asset],
+                }));
 
               res.json({
                 address,
