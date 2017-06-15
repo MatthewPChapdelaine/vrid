@@ -53,7 +53,8 @@ code {
   display: flex;
   padding: 15px 30px;
   margin-bottom: 20px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  // box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  border-bottom: 2px solid;
   font-size: 18px;
   align-items: center;
 }
@@ -287,10 +288,11 @@ label {
   padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  background-color: #EEE;
-  border-left: 30px solid #FFC107;
+  // background-color: #EEE;
+  border: 2px solid;
   color: #000;
   font-size: 16px;
+  align-items: center;
   box-sizing: border-box;
 }
 .assets-grid .asset:hover {
@@ -301,18 +303,12 @@ label {
 .assets-grid .asset:hover::before {
   color: #000;
 }
-.assets-grid .asset::before {
-  display: flex;
-  position: absolute;
-  width: 100px;
-  top: 35px;
-  left: -65px;
-  height: 30px;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  transform: rotate(-90deg);
-  content: 'Asset';
+.assets-grid .asset .img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
 }
 .assets-grid .asset .name {
   display: flex;

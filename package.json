@@ -19,7 +19,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "cookie": "^0.3.1",
-    "creaturejs": "0.0.5",
+    "creaturejs": "0.0.14",
     "eccrypto-sync": "0.0.1",
     "express": "^4.15.2",
     "fast-sha256": "^1.0.0",
