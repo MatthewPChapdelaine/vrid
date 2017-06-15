@@ -369,6 +369,12 @@ label {
   font-weight: 600;
   box-sizing: border-box;
 }
+.charge .charge-side .address-icon {
+  position: absolute;
+  top: 12px;
+  left: 3px;
+  fill: #2196F3;
+}
 .charge .charge-side .img {
   width: 50px;
   height: 50px;
