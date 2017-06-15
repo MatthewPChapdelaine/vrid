@@ -209,9 +209,7 @@ class Vrid {
         }), (req, res, next) => {
           const {privateKey} = req;
           const privateKeyBuffer = new Buffer(privateKey, 'base64');
-          const publicKey = eccrypto.getPublic(privateKeyBuffer);
-          const publicKeyString = publicKey.toString('base64');
-          const address = publicKeyString;
+          const address = backendApi.getAddress(privateKeyBuffer);
 
           backendApi.requestUnconfirmedBalances(address)
             .then(balances => {
@@ -230,23 +228,23 @@ class Vrid {
               res.send(err.stack);
             });
         });
-        app.post(path.join(prefix, '/api/charge'), cors, cookieParser, bodyParserJson, (req, res, next) => {
+        app.post(path.join(prefix, '/api/charge'), cors, bodyParserJson, (req, res, next) => {
           const {body} = req;
 
           if (
             typeof body == 'object' && body &&
-            typeof body.asset === 'string' &&
-            typeof body.quantity === 'number' &&
             typeof body.srcAddress === 'string' &&
-            typeof body.dstAddress === 'string'
+            typeof body.dstAddress === 'string' &&
+            typeof body.srcAsset === 'string' &&
+            typeof body.srcQuantity === 'number' &&
+            (body.dstAsset === null || (typeof body.dstAsset === 'string')) &&
+            typeof body.dstQuantity === 'number'
           ) {
-            const {asset, quantity, srcAddress, dstAddress} = body;
+            const {srcAddress, dstAddress, srcAsset, srcQuantity, dstAsset, dstQuantity} = body;
 
-            backendApi.requestCharge(asset, quantity, srcAddress, dstAddress)
-              .then(txid => {
-                res.json({
-                  txid,
-                });
+            backendApi.requestCreateCharge(srcAddress, dstAddress, srcAsset, srcQuantity, dstAsset, dstQuantity)
+              .then(result => {
+                res.json(result);
               })
               .catch(err => {
                 res.status(500);
