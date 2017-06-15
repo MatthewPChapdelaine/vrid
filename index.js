@@ -213,13 +213,16 @@ class Vrid {
           const publicKeyString = publicKey.toString('base64');
           const address = publicKeyString;
 
-          Promise.all([
-            backendApi.requestUnconfirmedBalances(address),
-          ])
+          backendApi.requestUnconfirmedBalances(address)
             .then(balances => {
+              const assets = Object.keys(balances).map(asset => ({
+                asset: asset,
+                quantity: balances[asset],
+              }));
+
               res.json({
                 address,
-                balances,
+                assets,
               });
             })
             .catch(err => {
