@@ -342,7 +342,7 @@ label {
 }
 .charge {
   display: flex;
-  margin-right: auto;
+  margin-bottom: 15px;
 }
 .charge .charge-side {
   display: flex;
