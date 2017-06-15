@@ -340,44 +340,69 @@ label {
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
-.charges-grid .charge:hover,
-.charges-grid .charge:hover .charge-side,
-.charges-grid .charge:hover .charge-spacer {
-  background-color: #000;
-  color: #FFF;
-  text-decoration: none;
-}
 .charge {
   display: flex;
   margin-right: auto;
 }
 .charge .charge-side {
   display: flex;
+  position: relative;
   width: 300px;
   height: 100px;
   padding: 10px;
-  background-color: #EEE;
+  // background-color: #EEE;
+  border: 2px solid;
   color: #000;
   font-size: 16px;
-  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
+}
+.charge .charge-side .address {
+  position: absolute;
+  top: -10px;
+  left: 5px;
+  padding: 5px 10px;
+  background-color: #EEE;
+  border-radius: 3px;
+  font-family: var(--monospace-fonts);
+  font-size: 11px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+.charge .charge-side .img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+.charge .charge-side .name {
+  display: flex;
+  width: 150px;
+  margin-right: auto;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
+  word-break: break-all;
+}
+.charge .charge-side .quantity {
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+}
+.charge .charge-side .icon {
+  position: absolute;
+  top: 54px;
+  left: 44px;
+  fill: #4CAF50;
 }
 .charge .charge-spacer {
   display: flex;
   padding: 20px;
   color: #000;
   font-size: 30px;
-  justify-content: center;
-  align-items: center;
-}
-.charge .charge-side .name {
-  margin-left: auto;
-  font-weight: 600;
-}
-.charge .charge-side .quantity {
-  display: flex;
-  font-size: 30px;
-  flex-grow: 1;
   justify-content: center;
   align-items: center;
 }
