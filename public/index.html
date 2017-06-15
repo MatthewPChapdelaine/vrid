@@ -111,18 +111,11 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=submit class=button value="Send">
           </div>
         </form>
-        <form class=issue-form id=issue-form>
-          <h1>Issue asset</h1>
+        <form class=mint-form id=mint-form>
+          <h1>Mint asset</h1>
           <div class=row>
-            <input type=number placeholder=0 id=issue-input>
+            <input type=number placeholder=0 id=mint-input>
             <input type=submit class=button value="Issue">
-          </div>
-        </form>
-        <form class=transfer-form id=transfer-form>
-          <h1>Transfer asset</h1>
-          <div class=row>
-            <input type=text placeholder="Enter destination address" id=transfer-input>
-            <input type=submit class=button value="Transfer">
           </div>
         </form>
         <h1>Help</h1>
@@ -143,7 +136,8 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
       </div>
       <div class="page charge" style="display: none;">
         <form class=charge-form id=charge-form>
-          <h1>Source (what they pay)</h1>
+          <h1>Source</h1>
+          <h3>What they pay. Must be something.</h3>
           <div class=row>
             <input type=text placeholder="Enter source addresss" id=charge-src-address-input>
           </div>
@@ -151,11 +145,14 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
             <input type=text placeholder="Enter source asset" id=charge-src-asset-input>
             <input type=number placeholder=0 id=charge-src-quantity-input>
           </div>
-          <h1>Destination (what you pay)</h1>
+          <div class=row></div>
+          <h1>Destination</h1>
+          <h3>What you pay. Can be nothing.</h3>
           <div class=row>
             <input type=text placeholder="Enter destination asset" id=charge-dst-asset-input>
             <input type=number placeholder=0 id=charge-dst-quantity-input>
           </div>
+          <div class=row></div>
           <div class=row>
             <input type=submit class=button value="Create charge">
           </div>

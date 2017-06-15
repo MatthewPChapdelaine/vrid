@@ -350,7 +350,6 @@ label {
 .charge {
   display: flex;
   margin-right: auto;
-  margin-bottom: 10px;
 }
 .charge .charge-side {
   display: flex;
@@ -399,10 +398,6 @@ label {
 .create-asset-form input[type=text] {
   width: 300px;
 }
-.issue-form input[type=number] {
-  margin-right: 10px;
-}
-.transfer-form input[type=text] {
-  width: 300px;
+.mint-form input[type=number] {
   margin-right: 10px;
 }
