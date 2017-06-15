@@ -326,6 +326,12 @@ label {
   justify-content: center;
   align-items: center;
 }
+.assets-grid .asset .icon {
+  position: absolute;
+  top: 54px;
+  left: 44px;
+  fill: #4CAF50;
+}
 .assets-create .button {
   margin-right: 10px;
 }

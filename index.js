@@ -95,7 +95,6 @@ class Vrid {
         });
         const cors = (req, res, next) => {
           res.set('Access-Control-Allow-Origin', req.get('Origin'));
-          res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
           res.set('Access-Control-Allow-Credentials', true);
 
           next();
