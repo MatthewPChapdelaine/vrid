@@ -68,10 +68,6 @@ class Vrid {
     };
   }
 
-  static getAddress(privateKeyBuffer) {
-    return backendApi.getAddress(privateKeyBuffer);
-  }
-
   requestApp() {
     const {prefix, origin, crdsUrl, sso} = this;
 
