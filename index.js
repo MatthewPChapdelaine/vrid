@@ -269,14 +269,14 @@ class Vrid {
             typeof body.srcAddress === 'string' &&
             typeof body.dstAddress === 'string' &&
             typeof body.asset === 'string' &&
-            typeof body.quantity === 'number'
+            typeof body.quantity === 'number' &&
+            typeof body.privateKey === 'string'
           ) {
-            const {dstAddress, asset, quantity} = body;
-            const {privateKey} = req;
+            const {dstAddress, asset, quantity, privateKey} = body;
             const privateKeyBuffer = new Buffer(privateKey, 'base64');
             const srcAddress = backendApi.getAddress(privateKeyBuffer);
 
-            backendApi.requestCreatePack(srcAddress, dstAddress, asset, quantity)
+            backendApi.requestCreatePack(srcAddress, dstAddress, asset, quantity, privateKey)
               .then(result => {
                 res.json(result);
               })
