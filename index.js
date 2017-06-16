@@ -261,6 +261,34 @@ class Vrid {
             res.send();
           }
         });
+        app.post(path.join(prefix, '/api/pack'), cors, bodyParserJson, (req, res, next) => {
+          const {body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.srcAddress === 'string' &&
+            typeof body.dstAddress === 'string' &&
+            typeof body.asset === 'string' &&
+            typeof body.quantity === 'number'
+          ) {
+            const {dstAddress, asset, quantity} = body;
+            const {privateKey} = req;
+            const privateKeyBuffer = new Buffer(privateKey, 'base64');
+            const srcAddress = backendApi.getAddress(privateKeyBuffer);
+
+            backendApi.requestCreatePack(srcAddress, dstAddress, asset, quantity)
+              .then(result => {
+                res.json(result);
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else {
+            res.status(400);
+            res.send();
+          }
+        });
 
         app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
 
