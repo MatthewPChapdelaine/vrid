@@ -261,6 +261,34 @@ class Vrid {
             res.send();
           }
         });
+        app.post(path.join(prefix, '/api/send'), cors, bodyParserJson, (req, res, next) => {
+          const {body} = req;
+
+          if (
+            typeof body == 'object' && body &&
+            typeof body.asset === 'string' &&
+            typeof body.quantity === 'number' &&
+            typeof body.srcAddress === 'string' &&
+            typeof body.dstAddress === 'string' &&
+            typeof body.privateKey === 'string'
+          ) {
+            const {asset, quantity, srcAddress, dstAddress, privateKey} = body;
+            const privateKeyBuffer = new Buffer(privateKey, 'base64');
+            const srcAddress = backendApi.getAddress(privateKeyBuffer);
+
+            backendApi.requestCreateSend(asset, quantity, srcAddress, dstAddress, privateKey)
+              .then(result => {
+                res.json(result);
+              })
+              .catch(err => {
+                res.status(500);
+                res.send(err.stack);
+              });
+          } else {
+            res.status(400);
+            res.send();
+          }
+        });
         app.post(path.join(prefix, '/api/pack'), cors, bodyParserJson, (req, res, next) => {
           const {body} = req;
 
@@ -272,7 +300,7 @@ class Vrid {
             typeof body.quantity === 'number' &&
             typeof body.privateKey === 'string'
           ) {
-            const {dstAddress, asset, quantity, privateKey} = body;
+            const {srcAddress, dstAddress, asset, quantity, privateKey} = body;
             const privateKeyBuffer = new Buffer(privateKey, 'base64');
             const srcAddress = backendApi.getAddress(privateKeyBuffer);
 
