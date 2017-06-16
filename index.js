@@ -204,10 +204,14 @@ class Vrid {
             res.send('Invalid sso query');
           }
         });
-        app.get(path.join(prefix, '/api/status'), cors, cookieParser, privateKeyParser, ensurePrivateKeyRespond({
-          address: null,
-          assets: [],
-        }), (req, res, next) => {
+        app.get(path.join(prefix, '/api/address'), cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
+          const {privateKey} = req;
+          const privateKeyBuffer = new Buffer(privateKey, 'base64');
+          const address = backendApi.getAddress(privateKeyBuffer);
+
+          res.json({address});
+        });
+        app.get(path.join(prefix, '/api/assets'), cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {privateKey} = req;
           const privateKeyBuffer = new Buffer(privateKey, 'base64');
           const address = backendApi.getAddress(privateKeyBuffer);
@@ -221,10 +225,7 @@ class Vrid {
                   quantity: balances[asset],
                 }));
 
-              res.json({
-                address,
-                assets,
-              });
+              res.json(assets);
             })
             .catch(err => {
               res.status(500);
