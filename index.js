@@ -228,7 +228,7 @@ class Vrid {
               res.json(assets);
             })
             .catch(err => {
-              res.status(500);
+              res.status(err.status || 500);
               res.send(err.stack);
             });
         });
@@ -251,7 +251,7 @@ class Vrid {
                 res.json(result);
               })
               .catch(err => {
-                res.status(500);
+                res.status(err.status || 500);
                 res.send(err.stack);
               });
           } else {
@@ -277,7 +277,7 @@ class Vrid {
                 res.json(result);
               })
               .catch(err => {
-                res.status(500);
+                res.status(err.status || 500);
                 res.send(err.stack);
               });
           } else {
@@ -303,7 +303,7 @@ class Vrid {
                 res.json(result);
               })
               .catch(err => {
-                res.status(500);
+                res.status(err.status || 500);
                 res.send(err.stack);
               });
           } else {
