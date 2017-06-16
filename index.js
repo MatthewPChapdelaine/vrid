@@ -273,8 +273,6 @@ class Vrid {
             typeof body.privateKey === 'string'
           ) {
             const {asset, quantity, srcAddress, dstAddress, privateKey} = body;
-            const privateKeyBuffer = new Buffer(privateKey, 'base64');
-            const srcAddress = backendApi.getAddress(privateKeyBuffer);
 
             backendApi.requestCreateSend(asset, quantity, srcAddress, dstAddress, privateKey)
               .then(result => {
@@ -301,8 +299,6 @@ class Vrid {
             typeof body.privateKey === 'string'
           ) {
             const {srcAddress, dstAddress, asset, quantity, privateKey} = body;
-            const privateKeyBuffer = new Buffer(privateKey, 'base64');
-            const srcAddress = backendApi.getAddress(privateKeyBuffer);
 
             backendApi.requestCreatePack(srcAddress, dstAddress, asset, quantity, privateKey)
               .then(result => {
