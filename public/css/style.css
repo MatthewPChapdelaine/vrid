@@ -436,16 +436,22 @@ label {
 }
 .send-asset-form input[type=text],
 .send-asset-form input[type=number],
-.charge-form input[type=text] {
+.create-charge-form input[type=text] {
   margin-right: 10px;
 }
 .send-asset-form input[type=text] {
   width: 300px;
 }
-.charge-form input[type=text]:not(:only-child) {
+.charges-form h1 {
+  margin-right: auto;
+}
+.charges-form .buttons .button + .button {
+  margin-left: 10px;
+}
+.create-charge-form input[type=text]:not(:only-child) {
   width: 390px;
 }
-.charge-form input[type=text]:only-child {
+.create-charge-form input[type=text]:only-child {
   width: 500px;
 }
 .create-asset-form input[type=text] {
