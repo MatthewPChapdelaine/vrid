@@ -14,7 +14,11 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
   <div class=body>
     <div class="statusbar login" style="display: none;">
       <div class=statusbar-left>
-        <span class=spacer>Wallet</span>
+        <img class=icon id=login-icon>
+        <a id=login-username>username</a><span class=spacer>/</span><span>Switch account</span>
+      </div>
+      <div class=statusbar-right>
+        <a class=button id=login-login-button>Switch account</a>
       </div>
     </div>
     <div class="statusbar account" style="display: none;">
@@ -47,7 +51,7 @@ base.href = document.location.protocol + '//' + document.location.hostname + (do
     <div class="statusbar create-charge" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=create-charge-icon>
-        <a id=create-charge-username>username</a><span class=spacer>/</span><span id=create-charge-id>Create charge</span>
+        <a id=create-charge-username>username</a><span class=spacer>/</span><span>Create charge</span>
       </div>
       <div class=statusbar-right>
         <a class=button id=create-charge-login-button>Switch account</a>
