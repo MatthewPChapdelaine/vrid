@@ -1,19 +1,19 @@
 {
   "name": "vrid",
   "version": "0.0.14",
-  "description": "Identity management for metaverse servers",
+  "description": "A frontend for CRD",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/modulesio/cntrprty.git"
+    "url": "git+https://github.com/modulesio/vrid.git"
   },
   "author": "Avaer Kazmer <a@modules.io>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/modulesio/cntrprty/issues"
+    "url": "https://github.com/modulesio/vrid/issues"
   },
   "homepage": "https://github.com/modulesio/vrid#readme",
   "dependencies": {
