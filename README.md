@@ -7,6 +7,8 @@ npm i -g vrid
 vrid host=127.0.0.1 port=8000 crdsUrl=https://crds.server.example:9999/
 ```
 
+![VRID screenshot](https://raw.githubusercontent.com/modulesio/vrid/master/public/img/screenshot.png)
+
 ## Motivation
 
 To allow Virtual Reality metaverse servers to support distributed, permissionless, realtime transactions between mutually untrusting parties running untrusted code.
@@ -16,8 +18,6 @@ This is one of the key components powering [`Zeo`](https://github.com/modulesio/
 ## Overview
 
 This is a web frontend for the [`CRD`](https://github.com/modulesio/crds) blockchain. Basically, it's a "web wallet" that stores your `CRD` private key in a browser cookie.
-
-![VRID screenshot](https://raw.githubusercontent.com/modulesio/vrid/master/public/img/screenshot.png)
 
 VRID can be used to manage your `CRD` address, send funds, mint assets, create charges, issue chargebacks -- virtually everything supported by the `CRD` blockchain -- but it also exposes your _public_ (but not private) key to apps that query for it.
 
