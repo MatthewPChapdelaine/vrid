@@ -320,7 +320,7 @@ class Vrid {
 
   listen({
     hostname = null,
-    port = 3000,
+    port = 9999,
   } = {}) {
     this.requestApp()
       .then(app => {
@@ -357,6 +357,23 @@ const _jsonParse = s => {
 module.exports = opts => new Vrid(opts);
 
 if (!module.parent) {
+  const args = process.argv.slice(2);
+  const _findArg = name => {
+    for (let i = 0; i < args.length; i++) {
+      const arg = args[i];
+      const match = arg.match(new RegExp('^' + name + '=(.+)$'));
+      if (match) {
+        return match[1];
+      }
+    }
+    return null;
+  };
+  const host = _findArg('host') || '0.0.0.0';
+  const port = parseInt(_findArg('port'), 10) || 9999;
+
   new Vrid()
-    .listen();
+    .listen({
+      host,
+      port,
+    });
 }
