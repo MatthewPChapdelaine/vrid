@@ -445,6 +445,10 @@ label {
 .charges-form h1 {
   margin-right: auto;
 }
+.charges-form .buttons {
+  display: flex;
+  align-items: center;
+}
 .charges-form .buttons .button + .button {
   margin-left: 10px;
 }
