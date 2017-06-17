@@ -17,7 +17,7 @@ This is one of the key components powering [`Zeo`](https://github.com/modulesio/
 
 This is a web frontend for the [`CRD`](https://github.com/modulesio/crds) blockchain. Basically, it's a "web wallet" that stores your `CRD` private key in a browser cookie.
 
-<img>
+![VRID screenshot](https://raw.githubusercontent.com/modulesio/vrid/master/public/img/screenshot.png)
 
 VRID can be used to manage your `CRD` address, send funds, mint assets, create charges, issue chargebacks -- virtually everything supported by the `CRD` blockchain -- but it also exposes your _public_ (but not private) key to apps that query for it.
 
