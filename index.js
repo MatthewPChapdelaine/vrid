@@ -369,11 +369,13 @@ if (!module.parent) {
     return null;
   };
   const host = _findArg('host') || '0.0.0.0';
-  const port = parseInt(_findArg('port'), 10) || 9999;
+  const port = parseInt(_findArg('port'), 10) || 8000;
+  const crdsUrl = _findArg('crdsUrl') || 'https://seed.zeovr.io:9999/';
 
   new Vrid()
     .listen({
       host,
       port,
+      crdsUrl,
     });
 }
