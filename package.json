@@ -1,6 +1,6 @@
 {
   "name": "vrid",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A frontend for CRD",
   "main": "index.js",
   "scripts": {
