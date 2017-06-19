@@ -74,23 +74,38 @@ class Vrid {
       .then(code => code.replace(/CRDS_URL/g, () => crdsUrl));
 
     return Promise.all([
-      _readFile(path.join(__dirname, 'public', 'index.html'), 'utf8'),
+      _readFile(path.join(__dirname, 'public', 'index.html')),
       _requestIndexJsRollup(),
+      _readFile(path.join(__dirname, 'public', 'css', 'style.css')),
     ])
       .then(([
         indexHtml,
         indexJs,
+        styleCss,
       ]) => {
         const app = express();
 
-        app.get('/id', (req, res, next) => {
+        const assetsIndexRequest = (req, res, next) => {
           res.type('text/html');
           res.send(indexHtml);
-        });
+        };
+        app.get('/id', assetsIndexRequest);
+        app.get('/id/login', assetsIndexRequest);
+        app.get('/id/assets/:asset', assetsIndexRequest);
+        app.get('/id/createAsset', assetsIndexRequest);
+        app.get('/id/charges', assetsIndexRequest);
+        app.get('/id/createCharge', assetsIndexRequest);
+        app.get('/id/monitor', assetsIndexRequest);
+
         app.get('/id/js/index.js', (req, res, next) => {
           res.type('application/javascript');
           res.send(indexJs);
         });
+        app.get('/id/css/style.css', (req, res, next) => {
+          res.type('text/css');
+          res.send(styleCss);
+        });
+
         const cors = (req, res, next) => {
           res.set('Access-Control-Allow-Origin', req.get('Origin'));
           res.set('Access-Control-Allow-Headers', 'Content-Type');
@@ -309,21 +324,6 @@ class Vrid {
             res.send();
           }
         });
-
-        const assetsPublicStatic = express.static(path.join(__dirname, 'public'));
-        app.use('/id', assetsPublicStatic);
-
-        const assetsPublicRequest = (req, res, next) => {
-          req.url = '/';
-
-          assetsPublicStatic(req, res, next);
-        };
-        app.get('/id/login', assetsPublicRequest);
-        app.get('/id/assets/:asset', assetsPublicRequest);
-        app.get('/id/createAsset', assetsPublicRequest);
-        app.get('/id/charges', assetsPublicRequest);
-        app.get('/id/createCharge', assetsPublicRequest);
-        app.get('/id/monitor', assetsPublicRequest);
 
         return Promise.resolve(app);
       });
