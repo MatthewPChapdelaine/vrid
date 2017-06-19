@@ -49,7 +49,6 @@ const _requestRollup = p => rollup.rollup({
 
 class Vrid {
   constructor({
-    prefix = '',
     origin = '',
     crdsUrl = '',
     sso: {
@@ -58,7 +57,6 @@ class Vrid {
       redirectUrl = 'http://example.com/sso',
     } = {},
   } = {}) {
-    this.prefix = prefix;
     this.origin = origin;
     this.crdsUrl = crdsUrl;
     this.sso = {
@@ -69,7 +67,7 @@ class Vrid {
   }
 
   requestApp() {
-    const {prefix, origin, crdsUrl, sso} = this;
+    const {origin, crdsUrl, sso} = this;
 
     const backendApi = backendApiLib({crdsUrl});
     const _requestIndexJsRollup = () => _requestRollup(path.join(__dirname, 'lib', 'index.js'))
@@ -85,11 +83,11 @@ class Vrid {
       ]) => {
         const app = express();
 
-        app.get(path.join(prefix, '/'), (req, res, next) => {
+        app.get('/id', (req, res, next) => {
           res.type('text/html');
           res.send(indexHtml);
         });
-        app.get(path.join(prefix, '/js/index.js'), (req, res, next) => {
+        app.get('/id/js/index.js', (req, res, next) => {
           res.type('application/javascript');
           res.send(indexJs);
         });
@@ -161,10 +159,10 @@ class Vrid {
             maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
           }));
         };
-        app.options(path.join(prefix, '/api/*'), cors, (req, res, next) => {
+        app.options('/id/api/*', cors, (req, res, next) => {
           res.send();
         });
-        app.get(path.join(prefix, '/sso'), cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
+        app.get('/id/sso', cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {query} = req;
           const {sso: ssoBase64String = ''} = query;
           const ssoString = new Buffer(ssoBase64String, 'base64').toString('utf8');
@@ -204,14 +202,14 @@ class Vrid {
             res.send('Invalid sso query');
           }
         });
-        app.get(path.join(prefix, '/api/address'), cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
+        app.get('/id/api/address', cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {privateKey} = req;
           const privateKeyBuffer = new Buffer(privateKey, 'base64');
           const address = backendApi.getAddress(privateKeyBuffer);
 
           res.json({address});
         });
-        app.get(path.join(prefix, '/api/assets'), cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
+        app.get('/id/api/assets', cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {privateKey} = req;
           const privateKeyBuffer = new Buffer(privateKey, 'base64');
           const address = backendApi.getAddress(privateKeyBuffer);
@@ -232,7 +230,7 @@ class Vrid {
               res.send(err.stack);
             });
         });
-        app.post(path.join(prefix, '/api/charge'), cors, bodyParserJson, (req, res, next) => {
+        app.post('/id/api/charge', cors, bodyParserJson, (req, res, next) => {
           const {body} = req;
 
           if (
@@ -259,7 +257,7 @@ class Vrid {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/send'), cors, bodyParserJson, (req, res, next) => {
+        app.post('/id/api/send', cors, bodyParserJson, (req, res, next) => {
           const {body} = req;
 
           if (
@@ -285,7 +283,7 @@ class Vrid {
             res.send();
           }
         });
-        app.post(path.join(prefix, '/api/pack'), cors, bodyParserJson, (req, res, next) => {
+        app.post('/id/api/pack', cors, bodyParserJson, (req, res, next) => {
           const {body} = req;
 
           if (
@@ -312,7 +310,19 @@ class Vrid {
           }
         });
 
-        app.use(path.join(prefix, '/'), express.static(path.join(__dirname, 'public')));
+        const assetsPublicStatic = express.static(path.join(__dirname, 'public'));
+        app.use('/id', assetsPublicStatic);
+
+        const assetsPublicRequest = (req, res, next) => {
+          req.url = '/';
+
+          assetsPublicStatic(req, res, next);
+        };
+        app.get('/id/assets/:asset', assetsPublicRequest);
+        app.get('/id/createAsset', assetsPublicRequest);
+        app.get('/id/charges', assetsPublicRequest);
+        app.get('/id/createCharge', assetsPublicRequest);
+        app.get('/id/monitor', assetsPublicRequest);
 
         return Promise.resolve(app);
       });
