@@ -318,6 +318,7 @@ class Vrid {
 
           assetsPublicStatic(req, res, next);
         };
+        app.get('/id/login', assetsPublicRequest);
         app.get('/id/assets/:asset', assetsPublicRequest);
         app.get('/id/createAsset', assetsPublicRequest);
         app.get('/id/charges', assetsPublicRequest);
