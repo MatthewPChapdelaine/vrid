@@ -224,6 +224,12 @@ class Vrid {
 
           res.json({address});
         });
+        const _getAssets = balances => Object.keys(balances)
+          .filter(asset => /^[A-Z]+$/.test(asset))
+          .map(asset => ({
+            asset: asset,
+            quantity: balances[asset],
+          }));
         app.get('/id/api/assets', cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {privateKey} = req;
           const privateKeyBuffer = new Buffer(privateKey, 'base64');
@@ -231,13 +237,33 @@ class Vrid {
 
           backendApi.requestUnconfirmedBalances(address)
             .then(balances => {
-              const assets = Object.keys(balances)
-                .filter(asset => /^[A-Z]+$/.test(asset))
-                .map(asset => ({
-                  asset: asset,
-                  quantity: balances[asset],
-                }));
+              const assets = _getAssets(balances);
+              res.json(assets);
+            })
+            .catch(err => {
+              res.status(err.status || 500);
+              res.send(err.stack);
+            });
+        });
+        app.get('/id/api/unconfirmedAssets/:address', cors, (req, res, next) => {
+          const {address} = req.params;
 
+          backendApi.requestUnconfirmedBalances(address)
+            .then(balances => {
+              const assets = _getAssets(balances);
+              res.json(assets);
+            })
+            .catch(err => {
+              res.status(err.status || 500);
+              res.send(err.stack);
+            });
+        });
+        app.get('/id/api/confirmedAssets/:address', cors, (req, res, next) => {
+          const {address} = req.params;
+
+          backendApi.requestConfirmedBalances(address)
+            .then(balances => {
+              const assets = _getAssets(balances);
               res.json(assets);
             })
             .catch(err => {
