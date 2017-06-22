@@ -158,14 +158,6 @@ class Vrid {
             res.json(defaultJson);
           }
         };
-        /* const ensurePrivateKeyError = (req, res, next) => {
-          if (req.privateKey) {
-            next();
-          } else {
-            res.status(401);
-            res.send();
-          }
-        }; */
         const _setCookie = (res, key, value, {httpOnly = true} = {}) => {
           const valueString = typeof value === 'string' ? value : JSON.stringify(value);
           res.setHeader('Set-Cookie', cookie.serialize(key, valueString, {
@@ -216,6 +208,16 @@ class Vrid {
             res.status(400);
             res.send('Invalid sso query');
           }
+        });
+        app.get('/id/api/status', cors, (req, res, next) => {
+          backendApi.requestStatus()
+            .then(status => {
+              res.json(status);
+            })
+            .catch(err => {
+              res.status(err.status || 500);
+              res.send(err.stack);
+            });
         });
         app.get('/id/api/address', cors, cookieParser, privateKeyParser, ensurePrivateKeyDefault, (req, res, next) => {
           const {privateKey} = req;
