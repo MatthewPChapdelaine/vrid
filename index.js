@@ -9,6 +9,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bodyParserJson = bodyParser.json();
 const cookie = require('cookie');
+const httpProxy = require('http-proxy');
 const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonJs = require('rollup-plugin-commonjs');
@@ -106,6 +107,23 @@ class Vrid {
           res.send(styleCss);
         });
 
+        const crdsProxy = httpProxy.createProxyServer({
+          target: crdsUrl,
+          // xfwd: true,
+        });
+        app.get(/^\/crds\/.*$/, (req, res, next) => {
+          req.url = req.url.replace(/^\/crds/, '');
+
+          crdsProxy.web(req, res, err => {
+            if (err) {
+              res.status(500);
+              res.json({
+                error: err.stack,
+              });
+            }
+          });
+        });
+
         const cors = (req, res, next) => {
           res.set('Access-Control-Allow-Origin', req.get('Origin'));
           res.set('Access-Control-Allow-Headers', 'Content-Type');
@@ -114,7 +132,7 @@ class Vrid {
           next();
         };
         const cookieParser = (req, res, next) => {
-          const cookieHeader = req.get('Cookie');
+          const  cookieHeader = req.get('Cookie');
 
           if (cookieHeader) {
             req.cookie = cookie.parse(cookieHeader);

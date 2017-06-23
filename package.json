@@ -23,6 +23,7 @@
     "eccrypto-sync": "0.0.4",
     "express": "^4.15.2",
     "fast-sha256": "^1.0.0",
+    "http-proxy": "^1.16.2",
     "js-cookie": "^2.1.4",
     "mkdirp": "^0.5.1",
     "node-fetch": "^1.6.3",
