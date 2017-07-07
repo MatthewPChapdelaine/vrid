@@ -86,44 +86,6 @@ class Vrid {
       ]) => {
         const app = express();
 
-        const assetsIndexRequest = (req, res, next) => {
-          res.type('text/html');
-          res.send(indexHtml);
-        };
-        app.get('/id', assetsIndexRequest);
-        app.get('/id/login', assetsIndexRequest);
-        app.get('/id/assets/:asset', assetsIndexRequest);
-        app.get('/id/createAsset', assetsIndexRequest);
-        app.get('/id/charges', assetsIndexRequest);
-        app.get('/id/createCharge', assetsIndexRequest);
-        app.get('/id/monitor', assetsIndexRequest);
-
-        app.get('/id/js/index.js', (req, res, next) => {
-          res.type('application/javascript');
-          res.send(indexJs);
-        });
-        app.get('/id/css/style.css', (req, res, next) => {
-          res.type('text/css');
-          res.send(styleCss);
-        });
-
-        const crdsProxy = httpProxy.createProxyServer({
-          target: crdsUrl,
-          // xfwd: true,
-        });
-        app.get(/^\/crds\/.*$/, (req, res, next) => {
-          req.url = req.url.replace(/^\/crds/, '');
-
-          crdsProxy.web(req, res, err => {
-            if (err) {
-              res.status(500);
-              res.json({
-                error: err.stack,
-              });
-            }
-          });
-        });
-
         const cors = (req, res, next) => {
           res.set('Access-Control-Allow-Origin', req.get('Origin'));
           res.set('Access-Control-Allow-Headers', 'Content-Type');
@@ -184,6 +146,45 @@ class Vrid {
             maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
           }));
         };
+
+        const assetsIndexRequest = (req, res, next) => {
+          res.type('text/html');
+          res.send(indexHtml);
+        };
+        app.get('/id', [cookieParser, privateKeyParser, ensurePrivateKeyDefault, assetsIndexRequest]);
+        app.get('/id/login', assetsIndexRequest);
+        app.get('/id/assets/:asset', assetsIndexRequest);
+        app.get('/id/createAsset', assetsIndexRequest);
+        app.get('/id/charges', assetsIndexRequest);
+        app.get('/id/createCharge', assetsIndexRequest);
+        app.get('/id/monitor', assetsIndexRequest);
+
+        app.get('/id/js/index.js', (req, res, next) => {
+          res.type('application/javascript');
+          res.send(indexJs);
+        });
+        app.get('/id/css/style.css', (req, res, next) => {
+          res.type('text/css');
+          res.send(styleCss);
+        });
+
+        const crdsProxy = httpProxy.createProxyServer({
+          target: crdsUrl,
+          // xfwd: true,
+        });
+        app.get(/^\/crds\/.*$/, (req, res, next) => {
+          req.url = req.url.replace(/^\/crds/, '');
+
+          crdsProxy.web(req, res, err => {
+            if (err) {
+              res.status(500);
+              res.json({
+                error: err.stack,
+              });
+            }
+          });
+        });
+
         app.options('/id/api/*', cors, (req, res, next) => {
           res.send();
         });
