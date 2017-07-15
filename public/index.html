@@ -41,6 +41,15 @@
         <a class=button id=create-asset-login-button>Switch account</a>
       </div>
     </div>
+    <div class="statusbar buy-asset" style="display: none;">
+      <div class=statusbar-left>
+        <img class=icon id=buy-asset-icon>
+        <a id=buy-asset-username>username</a><span class=spacer>/</span><span>Buy asset</span>
+      </div>
+      <div class=statusbar-right>
+        <a class=button id=buy-asset-login-button>Switch account</a>
+      </div>
+    </div>
     <div class="statusbar monitor" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=monitor-icon>
@@ -64,8 +73,9 @@
       <div class="page account" style="display: none;">
         <h1>Assets</h1>
         <div class=assets-grid id=assets-grid></div>
-        <div class="row assets-create">
+        <div class="row assets-row">
           <a class=button id=create-asset>Create asset</a>
+          <a class=button id=buy-asset>Buy asset</a>
         </div>
         <h1>Monitor</h1>
         <div class=row>
@@ -77,14 +87,14 @@
           <h1>Send asset</h1>
           <div class=row>
             <input type=text placeholder="Enter destination address" id=send-asset-address-input>
-            <input type=number placeholder=0 id=send-asset-quantity-input>
+            <input type=number placeholder=0 min=0 step=1 id=send-asset-quantity-input>
             <input type=submit class=button value="Send">
           </div>
         </form>
         <form class=mint-form id=mint-form>
           <h1>Mint asset</h1>
           <div class=row>
-            <input type=number placeholder=0 id=mint-input>
+            <input type=number placeholder=0 min=0 step=1 id=mint-input>
             <input type=submit class=button value="Mint">
           </div>
         </form>
@@ -97,6 +107,18 @@
           </div>
           <div class=row>
             <input type=submit class=button value="Create asset">
+          </div>
+        </form>
+      </div>
+      <div class="page buy-asset" style="display: none;">
+        <form class=buy-asset-form id=buy-asset-form>
+          <h1>Buy asset</h1>
+          <div class=row>
+            <input type=text placeholder="Enter asset name" id=buy-asset-name-input>
+            <input type=number placeholder=0 min=0 step=1 id=buy-asset-quantity-input>
+          </div>
+          <div class=row>
+            <input type=submit class=button value="Buy asset">
           </div>
         </form>
       </div>
