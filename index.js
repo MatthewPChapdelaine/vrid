@@ -156,8 +156,6 @@ class Vrid {
         app.get('/id/assets/:asset', assetsIndexRequest);
         app.get('/id/createAsset', assetsIndexRequest);
         app.get('/id/buyAsset', assetsIndexRequest);
-        app.get('/id/charges', assetsIndexRequest);
-        app.get('/id/createCharge', assetsIndexRequest);
         app.get('/id/monitor', assetsIndexRequest);
 
         app.get('/id/js/index.js', (req, res, next) => {
@@ -292,33 +290,6 @@ class Vrid {
               res.status(err.status || 500);
               res.send(err.stack);
             });
-        });
-        app.post('/id/api/charge', cors, bodyParserJson, (req, res, next) => {
-          const {body} = req;
-
-          if (
-            typeof body == 'object' && body &&
-            typeof body.srcAddress === 'string' &&
-            typeof body.dstAddress === 'string' &&
-            typeof body.srcAsset === 'string' &&
-            typeof body.srcQuantity === 'number' &&
-            (body.dstAsset === null || (typeof body.dstAsset === 'string')) &&
-            typeof body.dstQuantity === 'number'
-          ) {
-            const {srcAddress, dstAddress, srcAsset, srcQuantity, dstAsset, dstQuantity} = body;
-
-            backendApi.requestCreateCharge(srcAddress, dstAddress, srcAsset, srcQuantity, dstAsset, dstQuantity)
-              .then(result => {
-                res.json(result);
-              })
-              .catch(err => {
-                res.status(err.status || 500);
-                res.send(err.stack);
-              });
-          } else {
-            res.status(400);
-            res.send();
-          }
         });
         app.post('/id/api/send', cors, bodyParserJson, (req, res, next) => {
           const {body} = req;
