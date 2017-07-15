@@ -156,6 +156,7 @@ class Vrid {
         app.get('/id/assets/:asset', assetsIndexRequest);
         app.get('/id/createAsset', assetsIndexRequest);
         app.get('/id/buyAsset', assetsIndexRequest);
+        app.get('/id/confirmPurchase', assetsIndexRequest);
         app.get('/id/monitor', assetsIndexRequest);
 
         app.get('/id/js/index.js', (req, res, next) => {

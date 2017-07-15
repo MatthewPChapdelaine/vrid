@@ -50,6 +50,15 @@
         <a class=button id=buy-asset-login-button>Switch account</a>
       </div>
     </div>
+    <div class="statusbar confirm-purchase" style="display: none;">
+      <div class=statusbar-left>
+        <img class=icon id=confirm-purchase-icon>
+        <a id=confirm-purchase-username>username</a><span class=spacer>/</span><span>Confirm purchase</span>
+      </div>
+      <div class=statusbar-right>
+        <a class=button id=confirm-purchase-login-button>Switch account</a>
+      </div>
+    </div>
     <div class="statusbar monitor" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=monitor-icon>
@@ -127,6 +136,16 @@
           </div>
           <div class=row>
             <input type=submit class=button value="Buy asset">
+          </div>
+        </form>
+      </div>
+      <div class="page confirm-purchase" style="display: none;">
+        <form class=confirm-purchase-form id=confirm-purchase-form>
+          <h1>Confirm purchase</h1>
+          <div class=row>Buy <code id=confirm-purchase-asset></code> for <code><span id=confirm-purchase-price></span> CRD</code>?</div>
+          <div class=row>
+            <input type=submit class=button value="Confirm">
+            <input type=button class=button value="Cancel">
           </div>
         </form>
       </div>
