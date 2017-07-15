@@ -41,24 +41,6 @@
         <a class=button id=create-asset-login-button>Switch account</a>
       </div>
     </div>
-    <div class="statusbar create-charge" style="display: none;">
-      <div class=statusbar-left>
-        <img class=icon id=create-charge-icon>
-        <a id=create-charge-username>username</a><span class=spacer>/</span><span>Create charge</span>
-      </div>
-      <div class=statusbar-right>
-        <a class=button id=create-charge-login-button>Switch account</a>
-      </div>
-    </div>
-    <div class="statusbar charges" style="display: none;">
-      <div class=statusbar-left>
-        <img class=icon id=charges-icon>
-        <a id=charges-username>username</a><span class=spacer>/</span><span>Charges</span>
-      </div>
-      <div class=statusbar-right>
-        <a class=button id=charges-login-button>Switch account</a>
-      </div>
-    </div>
     <div class="statusbar monitor" style="display: none;">
       <div class=statusbar-left>
         <img class=icon id=monitor-icon>
@@ -84,11 +66,6 @@
         <div class=assets-grid id=assets-grid></div>
         <div class="row assets-create">
           <a class=button id=create-asset>Create asset</a>
-        </div>
-        <h1>Charges</h1>
-        <div class="row assets-create">
-          <a class=button id=charges>View charges</a>
-          <a class=button id=create-charge>Create charge</a>
         </div>
         <h1>Monitor</h1>
         <div class=row>
@@ -121,42 +98,6 @@
           <div class=row>
             <input type=submit class=button value="Create asset">
           </div>
-        </form>
-      </div>
-      <div class="page create-charge" style="display: none;">
-        <form class=create-charge-form id=create-charge-form>
-          <h1>Source</h1>
-          <h3>What they pay. Must be something.</h3>
-          <div class=row>
-            <input type=text placeholder="Enter source addresss" id=create-charge-src-address-input>
-          </div>
-          <div class=row>
-            <input type=text placeholder="Enter source asset" id=create-charge-src-asset-input>
-            <input type=number placeholder=0 id=create-charge-src-quantity-input>
-          </div>
-          <div class=row></div>
-          <h1>Destination</h1>
-          <h3>What you pay. Can be nothing.</h3>
-          <div class=row>
-            <input type=text placeholder="Enter destination asset" id=create-charge-dst-asset-input>
-            <input type=number placeholder=0 id=create-charge-dst-quantity-input>
-          </div>
-          <div class=row></div>
-          <div class=row>
-            <input type=submit class=button value="Create charge">
-          </div>
-        </form>
-      </div>
-      <div class="page charges" style="display: none;">
-        <form class=charges-form id=charges-form>
-          <div class=row>
-            <h1>Charges</h1>
-            <div class=buttons>
-              <a class=button id=prev-charges>&#x25C4;</a>
-              <a class=button id=next-charges>&#x25BA;</a>
-            </div>
-          </div>
-          <div class=charges-grid id=charges-grid></div>
         </form>
       </div>
       <div class="page monitor" style="display: none;">
