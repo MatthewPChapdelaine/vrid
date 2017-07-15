@@ -341,11 +341,14 @@ label {
 }
 .send-asset-form input[type=text],
 .send-asset-form input[type=number],
+.mint-asset-form input[type=text],
+.mint-asset-form input[type=number],
 .buy-asset-form input[type=text],
 .buy-asset-form input[type=number] {
   margin-right: 10px;
 }
 .send-asset-form input[type=text],
+.mint-asset-form input[type=text],
 .buy-asset-form input[type=text] {
   width: 300px;
 }
