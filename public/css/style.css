@@ -284,13 +284,13 @@ label {
 .assets-grid .asset {
   display: inline-flex;
   position: relative;
-  width: 300px;
-  height: 100px;
+  width: 245px;
+  height: 85px;
   padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  // background-color: #EEE;
-  border: 2px solid;
+  background-color: #EEE;
+  // border: 1px solid;
   color: #000;
   font-size: 16px;
   align-items: center;
