@@ -335,6 +335,7 @@ label {
   height: 50px;
   image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
+  pointer-events: none;
 }
 .assets-grid .asset .sub {
   display: flex;
