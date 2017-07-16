@@ -245,8 +245,9 @@ class Vrid {
 
           res.json({address});
         });
+        const _isBasicAsset = asset => /^(?:[A-Z0-9]|(?!^)\-(?!$))+(\.(?:[A-Z0-9]|(?!^)\-(?!$))+)?$/.test(asset);
         const _getAssets = balances => Object.keys(balances)
-          .filter(asset => /^[A-Z]+$/.test(asset))
+          .filter(asset => _isBasicAsset(asset))
           .map(asset => ({
             asset: asset,
             quantity: balances[asset],
