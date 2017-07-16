@@ -124,9 +124,7 @@ class Vrid {
             const privateKey = crypto.randomBytes(32).toString('base64');
             req.privateKey = privateKey;
 
-            _setCookie(res, 'privateKey', privateKey, {
-              httpOnly: false,
-            });
+            _setCookie(res, 'privateKey', privateKey);
           }
 
           next();
@@ -138,11 +136,11 @@ class Vrid {
             res.json(defaultJson);
           }
         };
-        const _setCookie = (res, key, value, {httpOnly = true} = {}) => {
+        const _setCookie = (res, key, value) => {
           const valueString = typeof value === 'string' ? value : JSON.stringify(value);
           res.setHeader('Set-Cookie', cookie.serialize(key, valueString, {
             path: '/',
-            httpOnly: httpOnly,
+            httpOnly: false,
             maxAge: 60 * 60 * 24 * 7 * 52 * 10, // 10 years
           }));
         };
@@ -318,6 +316,47 @@ class Vrid {
             res.status(400);
             res.send();
           }
+        });
+        app.get('/id/api/cookie/:key', cors, cookieParser, (req, res, next) => {
+          const {data: dataString} = (req.cookie || {});
+
+          if (dataString) {
+            const data = _jsonParse(dataString);
+
+            if (typeof data === 'object' && data !== null) {
+              const {key} = req.params;
+              const value = data[key];
+              res.json(value);
+            } else {
+              res.json(null);
+            }
+          } else {
+            res.json(null);
+          }
+        });
+        app.post('/id/api/cookie/:key', cors, bodyParserJson, (req, res, next) => {
+          const data = (() => {
+            const {data: dataString} = (req.cookie || {});
+
+            if (dataString) {
+              const data = _jsonParse(dataString);
+
+              if (typeof data === 'object' && data !== null) {
+                return data;
+              } else {
+                return {};
+              }
+            } else {
+              return {};
+            }
+          })();
+          const {key} = req.params;
+          const value = req.body;
+          data[key] = value;
+
+          _setCookie(res, 'data', data);
+
+          res.send();
         });
 
         return Promise.resolve(app);
