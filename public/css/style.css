@@ -276,9 +276,19 @@ label {
   margin-left: auto;
   font-weight: 600;
 }
-.assets-grid {
+.assets-wrap {
   display: flex;
   margin-bottom: 10px;
+}
+.assets-side:nth-child(1) {
+  width: calc((100px + 10px) * 5);
+  margin-right: 20px;
+}
+.assets-side:nth-child(2) {
+  width: calc((100px + 10px) * 1);
+}
+.assets-grid {
+  display: flex;
   flex-wrap: wrap;
 }
 .assets-grid .asset {
@@ -302,6 +312,16 @@ label {
   text-decoration: none;
 }
 .assets-grid .asset:hover::before {
+}
+.assets-grid .asset.empty {
+  display: flex;
+  background-color: transparent;
+  border: 2px solid;
+  color: #AAA;
+  justify-content: center;
+  align-items: center;
+}
+.assets-grid .asset.empty:hover {
   color: #000;
 }
 .assets-grid .asset .icon {
@@ -329,6 +349,11 @@ label {
 }
 .assets-grid .asset .sub .quantity {
 }
+.assets-grid .asset .placeholder {
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .assets-row {
   display: flex;
 }

@@ -80,8 +80,16 @@
         </form>
       </div>
       <div class="page account" style="display: none;">
-        <h1>Assets</h1>
-        <div class=assets-grid id=assets-grid></div>
+        <div class=assets-wrap>
+          <div class=assets-side>
+            <h1>Inventory</h1>
+            <div class="assets-grid inventory-grid" id=inventory-grid></div>
+          </div>
+          <div class=assets-side>
+            <h1>Equipment</h1>
+            <div class="assets-grid equipment-grid" id=equipment-grid></div>
+          </div>
+        </div>
         <div class="row assets-row">
           <a class=button id=create-asset>Create asset</a>
           <a class=button id=buy-asset>Buy asset</a>
