@@ -284,16 +284,16 @@ label {
 .assets-grid .asset {
   display: inline-flex;
   position: relative;
-  width: 245px;
-  height: 85px;
+  width: 100px;
+  height: 100px;
   padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
   background-color: #EEE;
-  // border: 1px solid;
   color: #000;
   font-size: 16px;
   align-items: center;
+  flex-direction: column;
   box-sizing: border-box;
 }
 .assets-grid .asset:hover {
@@ -304,34 +304,30 @@ label {
 .assets-grid .asset:hover::before {
   color: #000;
 }
+.assets-grid .asset .icon {
+  display: flex;
+  margin-right: 10px;
+  flex-grow: 1;
+  align-items: center;
+}
 .assets-grid .asset .img {
   width: 50px;
   height: 50px;
-  margin-right: 10px;
   image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
 }
-.assets-grid .asset .name {
+.assets-grid .asset .sub {
   display: flex;
-  width: 150px;
-  margin-right: auto;
-  font-size: 16px;
-  font-weight: 600;
+  width: 100%;
   align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+.assets-grid .asset .sub .name {
+  margin-right: auto;
   word-break: break-all;
 }
-.assets-grid .asset .quantity {
-  display: flex;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  align-items: center;
-}
-.assets-grid .asset .icon {
-  position: absolute;
-  top: 54px;
-  left: 44px;
-  fill: #4CAF50;
+.assets-grid .asset .sub .quantity {
 }
 .assets-row {
   display: flex;
