@@ -326,7 +326,6 @@ label {
 }
 .assets-grid .asset .icon {
   display: flex;
-  margin-right: 10px;
   flex-grow: 1;
   align-items: center;
 }
